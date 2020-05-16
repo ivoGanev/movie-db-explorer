@@ -1,6 +1,7 @@
 package android.ivo.popularmovies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final int GRID_SPANS = 2;
+
     private RecyclerView mRecyclerView;
     private MovieListAdapter mMovieListAdapter;
     private ActivityMainBinding mBinding;
@@ -46,5 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieListAdapter);
+
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+        loaderManager.initLoader(0,null, new MovieLoaderCallbacks(this));
     }
 }

@@ -7,23 +7,23 @@ public class Movie {
     private final String mPosterLink;
     private final float mVoteAverage;
 
-    public String getTitle() {
+    String getTitle() {
         return mTitle;
     }
 
-    public String getReleaseDate() {
+    String getReleaseDate() {
         return mReleaseDate;
     }
 
-    public String getPlotSynopsis() {
+    String getPlotSynopsis() {
         return mPlotSynopsis;
     }
 
-    public String getPosterLink() {
+    String getPosterLink() {
         return mPosterLink;
     }
 
-    public float getVoteAverage() {
+    float getVoteAverage() {
         return mVoteAverage;
     }
 
@@ -43,12 +43,12 @@ public class Movie {
         private String mPosterLink;
         private float mVoteAverage;
 
-        public Builder(String title)
+        Builder(String title)
         {
             mTitle = title;
         }
 
-        public Builder releaseDate(String releaseDate) {
+        Builder releaseDate(String releaseDate) {
             mReleaseDate = releaseDate;
             return this;
         }
@@ -56,7 +56,7 @@ public class Movie {
             mPlotSynopsis = plotSynopsis;
             return this;
         }
-        public Builder posterLink(String posterLink) {
+        Builder posterLink(String posterLink) {
             mPosterLink = posterLink;
             return this;
         }
@@ -66,7 +66,7 @@ public class Movie {
             return this;
         }
 
-        public Movie build() {
+        Movie build() {
             return new Movie(this);
         }
     }
