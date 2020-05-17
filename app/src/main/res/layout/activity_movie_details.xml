@@ -4,6 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MovieDetailsActivity">
 
+    <ImageView
+        android:id="@+id/img_movie_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/img_movie_height"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/tv_details_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Title" />
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12.5.2020" />
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Rating: 5" />
+    <TextView
+        android:id="@+id/tv_plot_synopsis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="What is it all about" />
 </LinearLayout>

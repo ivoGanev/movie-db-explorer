@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
-    Movie(Parcel in) {
+    private Movie(Parcel in) {
         mTitle = in.readString();
         mReleaseDate = in.readString();
         mPlotSynopsis = in.readString();
@@ -60,8 +60,8 @@ public class Movie implements Parcelable {
         return mPosterPath;
     }
 
-    double getVoteAverage() {
-        return mVoteAverage;
+    String getVoteAverage() {
+        return Double.toString(mVoteAverage);
     }
 
     private Movie(Builder builder)
@@ -73,7 +73,7 @@ public class Movie implements Parcelable {
         mVoteAverage = builder.mVoteAverage;
     }
 
-    public static class Builder {
+     static class Builder {
         private final String mTitle;
         private String mReleaseDate;
         private String mPlotSynopsis;
@@ -89,7 +89,7 @@ public class Movie implements Parcelable {
             mReleaseDate = releaseDate;
             return this;
         }
-        public Builder plotSynopsis(String plotSynopsis) {
+        Builder plotSynopsis(String plotSynopsis) {
             mPlotSynopsis = plotSynopsis;
             return this;
         }
