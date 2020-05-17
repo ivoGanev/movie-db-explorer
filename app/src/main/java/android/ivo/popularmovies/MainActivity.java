@@ -8,6 +8,7 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements
     private RecyclerView mRecyclerView;
     private MovieListAdapter mMovieListAdapter;
     private ActivityMainBinding mBinding;
+    private ArrayList<Movie> mMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +69,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Movie>> loader, List<Movie> data) {
-        mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(data), this);
+        mMovies = new ArrayList<>(data);
+        mMovieListAdapter = new MovieListAdapter(mMovies, this);
         mRecyclerView.setAdapter(mMovieListAdapter);
-        for (Movie m : data) {
-            Log.d(TAG, "onLoadFinished: " + data.toString());
-        }
     }
 
     @Override
@@ -81,5 +81,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnClick(int position) {
+        Intent movieDetails = new Intent(this, MovieDetailsActivity.class);
+        Movie movie = mMovies.get(position);
+        movieDetails.putExtra("movie", movie);
+        startActivity(movieDetails);
     }
 }

@@ -1,6 +1,43 @@
 package android.ivo.popularmovies;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
+    Movie(Parcel in) {
+        mTitle = in.readString();
+        mReleaseDate = in.readString();
+        mPlotSynopsis = in.readString();
+        mPosterPath = in.readString();
+        mVoteAverage = in.readDouble();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeString(mReleaseDate);
+        dest.writeString(mPlotSynopsis);
+        dest.writeString(mPosterPath);
+        dest.writeDouble(mVoteAverage);
+    }
+
     private final String mTitle;
     private final String mReleaseDate;
     private final String mPlotSynopsis;

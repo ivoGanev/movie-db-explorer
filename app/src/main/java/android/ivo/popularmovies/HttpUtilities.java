@@ -84,7 +84,7 @@ class HttpUtilities {
                         .plotSynopsis( movieElement.getString("overview"))
                         .posterPath(posterPath + posterFileName)
                         .build();
-                Log.d(TAG, "parseJsonToMovie: " + posterPath + posterFileName);
+
                 result.add(movie);
             }
 
