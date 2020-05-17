@@ -15,21 +15,20 @@ import java.util.List;
 
 public class MovieLoaderTask extends AsyncTaskLoader<List<Movie>> {
     private static final String MOVIE_DB_URL = "https://api.themoviedb.org/";
+    private static final String IMAGE_DB_URL = "https://image.tmdb.org/t/p/w154/";
     private static final String SEARCH_PATH = "3/movie/popular";
     private static final String API_KEY = "";
-    private static final String TAG = "MovieLoaderTask";
+    private static final String TAG = MovieLoaderTask.class.getSimpleName();
 
     @Nullable
     @Override
     public List<Movie> loadInBackground() {
-        List<Movie> movies = new ArrayList<>();
         Uri searchUri = Uri.parse(MOVIE_DB_URL);
         Uri builder = searchUri.buildUpon()
                 .appendQueryParameter("api_key", API_KEY)
                 .path(SEARCH_PATH)
                 .build();
 
-      //  Log.d(TAG, "loadInBackground: " + builder.toString());
         return HttpUtilities.parseJsonToMovie(stringToURL(builder.toString()));
     }
 

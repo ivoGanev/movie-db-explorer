@@ -5,7 +5,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,12 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 class HttpUtilities {
     private static final String TAG = HttpUtilities.class.getSimpleName();
@@ -38,7 +33,6 @@ class HttpUtilities {
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             urlConnection.setConnectTimeout(5000);
             urlConnection.setReadTimeout(5000);
-            Log.d(TAG, "getJsonData: " + url.toString());
             in = urlConnection.getInputStream();
             InputStreamReader streamReader = new InputStreamReader(in, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(streamReader);
@@ -48,7 +42,6 @@ class HttpUtilities {
 
                 String line = null;
                 while ((line = bufferedReader.readLine()) != null) {
-                    Log.d(TAG, "getJsonData: " + line);
                     jsonResult.append(line);
                 }
             }
@@ -79,9 +72,19 @@ class HttpUtilities {
             JSONArray movies = jsonData.getJSONArray("results");
             for (int i = 0; i < movies.length(); i++) {
                 JSONObject movieElement = movies.getJSONObject(i);
-                String title = movieElement.getString("original_title");
-                Movie movie = new Movie.Builder(title).build();
 
+                //TODO: Put this into MovieLoaderTask to for consistency
+                String posterPath = "https://image.tmdb.org/t/p/w154";
+                String posterFileName = movieElement.getString("poster_path");
+                posterFileName.replace("\\", "");
+
+                Movie movie = new Movie.Builder(movieElement.getString("original_title"))
+                        .voteAverage(movieElement.getDouble("vote_average"))
+                        .releaseDate(movieElement.getString("release_date"))
+                        .plotSynopsis( movieElement.getString("overview"))
+                        .posterPath(posterPath + posterFileName)
+                        .build();
+                Log.d(TAG, "parseJsonToMovie: " + posterPath + posterFileName);
                 result.add(movie);
             }
 

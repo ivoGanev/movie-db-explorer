@@ -4,8 +4,8 @@ public class Movie {
     private final String mTitle;
     private final String mReleaseDate;
     private final String mPlotSynopsis;
-    private final String mPosterLink;
-    private final float mVoteAverage;
+    private final String mPosterPath;
+    private final double mVoteAverage;
 
     String getTitle() {
         return mTitle;
@@ -19,11 +19,11 @@ public class Movie {
         return mPlotSynopsis;
     }
 
-    String getPosterLink() {
-        return mPosterLink;
+    String getPosterPath() {
+        return mPosterPath;
     }
 
-    float getVoteAverage() {
+    double getVoteAverage() {
         return mVoteAverage;
     }
 
@@ -32,7 +32,7 @@ public class Movie {
         mTitle = builder.mTitle;
         mReleaseDate = builder.mReleaseDate;
         mPlotSynopsis = builder.mPlotSynopsis;
-        mPosterLink = builder.mPosterLink;
+        mPosterPath = builder.mPosterPath;
         mVoteAverage = builder.mVoteAverage;
     }
 
@@ -40,8 +40,8 @@ public class Movie {
         private final String mTitle;
         private String mReleaseDate;
         private String mPlotSynopsis;
-        private String mPosterLink;
-        private float mVoteAverage;
+        private String mPosterPath;
+        private double mVoteAverage;
 
         Builder(String title)
         {
@@ -56,12 +56,12 @@ public class Movie {
             mPlotSynopsis = plotSynopsis;
             return this;
         }
-        Builder posterLink(String posterLink) {
-            mPosterLink = posterLink;
+        Builder posterPath(String posterPath) {
+            mPosterPath = posterPath;
             return this;
         }
 
-        public Builder voteAverage(float voteAverage) {
+        Builder voteAverage(double voteAverage) {
             mVoteAverage = voteAverage;
             return this;
         }
@@ -77,7 +77,7 @@ public class Movie {
                 "mTitle='" + mTitle + '\'' +
                 ", mReleaseDate='" + mReleaseDate + '\'' +
                 ", mPlotSynopsis='" + mPlotSynopsis + '\'' +
-                ", mPosterLink='" + mPosterLink + '\'' +
+                ", mPosterLink='" + mPosterPath + '\'' +
                 ", mVoteAverage=" + mVoteAverage +
                 '}';
     }

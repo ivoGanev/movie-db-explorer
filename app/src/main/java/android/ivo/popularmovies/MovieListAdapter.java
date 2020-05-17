@@ -10,16 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
     private static final String TAG = "MovieListAdapter";
     private int mTotalItems;
     private ArrayList<Movie> mMovies;
+    private final MovieAdapterOnClickListener mClickListener;
 
-    MovieListAdapter(ArrayList<Movie> movies) {
+    MovieListAdapter(ArrayList<Movie> movies, MovieAdapterOnClickListener listClickListener) {
         mMovies = movies;
         mTotalItems = mMovies.size();
+        mClickListener = listClickListener;
     }
 
     @NonNull
@@ -32,12 +36,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: " + position);
-        String movieTitle = mMovies.get(position).getTitle();
-        holder.mMovieTitle.setText(movieTitle == null ? "No Movie Title" : movieTitle);
-        String moviePosterLink = mMovies.get(position).getPosterLink();
-        // TODO: Fetch the image from the URL
-        holder.mMoviePoster.setImageResource(R.drawable.ic_launcher_background);
+        Movie movie = mMovies.get(position);
+        holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
+
+        Picasso.get().load(movie.getPosterPath()).into(holder.mMoviePoster);
     }
 
     @Override
@@ -45,7 +47,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         return mTotalItems;
     }
 
-    static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public interface MovieAdapterOnClickListener {
+        void OnClick(int position);
+    }
+
+    class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mMoviePoster;
         TextView mMovieTitle;
 
@@ -53,6 +59,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             super(itemView);
             mMoviePoster = itemView.findViewById(R.id.img_item_poster);
             mMovieTitle = itemView.findViewById(R.id.tv_item_title);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mClickListener.OnClick(clickedPosition);
         }
     }
 }

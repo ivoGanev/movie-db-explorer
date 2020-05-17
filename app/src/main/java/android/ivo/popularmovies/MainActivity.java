@@ -16,7 +16,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>> {
+public class MainActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<List<Movie>>,
+        MovieListAdapter.MovieAdapterOnClickListener {
     private static final int GRID_SPANS = 2;
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //                .build());
 
         mRecyclerView = mBinding.rvMovies;
-        mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>());
+        mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(), this);
         GridLayoutManager gridLayoutManager =
                 new GridLayoutManager(this, GRID_SPANS, RecyclerView.VERTICAL, false);
 
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Movie>> loader, List<Movie> data) {
-        mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(data));
+        mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(data), this);
         mRecyclerView.setAdapter(mMovieListAdapter);
         for (Movie m : data) {
             Log.d(TAG, "onLoadFinished: " + data.toString());
@@ -75,5 +77,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(@NonNull Loader<List<Movie>> loader) {
 
+    }
+
+    @Override
+    public void OnClick(int position) {
     }
 }
