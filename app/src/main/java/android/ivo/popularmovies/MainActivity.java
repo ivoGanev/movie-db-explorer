@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -34,21 +36,6 @@ public class MainActivity extends AppCompatActivity implements
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View mainView = mBinding.getRoot();
         setContentView(mainView);
-
-        // TODO: Replace the mock data with the https://developers.themoviedb.org/ API
-//        ArrayList<Movie> movies = new ArrayList<>();
-//        movies.add(new Movie.Builder("Jack the amazing ripper")
-//                .posterLink("http://img.png")
-//                .releaseDate("10/12/2020")
-//                .build());
-//        movies.add(new Movie.Builder("Jack the amazing ripper")
-//                .posterLink("http://img.png")
-//                .releaseDate("10/12/2020")
-//                .build());
-//        movies.add(new Movie.Builder("Jack the amazing ripper")
-//                .posterLink("http://img.png")
-//                .releaseDate("10/12/2020")
-//                .build());
 
         mRecyclerView = mBinding.rvMovies;
         mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(), this);
@@ -85,5 +72,27 @@ public class MainActivity extends AppCompatActivity implements
         Movie movie = mMovies.get(position);
         movieDetails.putExtra("movie", movie);
         startActivity(movieDetails);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sort_popular: {
+                Log.d(TAG, "onOptionsItemSelected: sorted by popularity");
+                return true;
+            }
+            case R.id.menu_sort_rating: {
+                Log.d(TAG, "onOptionsItemSelected: sorted by rating");
+                return true;
+            }
+            default:
+                return false;
+        }
     }
 }
