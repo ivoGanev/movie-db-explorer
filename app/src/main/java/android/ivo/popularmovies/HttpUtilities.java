@@ -74,7 +74,6 @@ class HttpUtilities {
                 JSONObject movieElement = movies.getJSONObject(i);
 
                 //TODO: Put this into MovieLoaderTask to for consistency
-                String posterPath = "https://image.tmdb.org/t/p/w154";
                 String posterFileName = movieElement.getString("poster_path");
                 posterFileName.replace("\\", "");
 
@@ -82,7 +81,7 @@ class HttpUtilities {
                         .voteAverage(movieElement.getDouble("vote_average"))
                         .releaseDate(movieElement.getString("release_date"))
                         .plotSynopsis( movieElement.getString("overview"))
-                        .posterPath(posterPath + posterFileName)
+                        .posterPath(posterFileName)
                         .build();
 
                 result.add(movie);

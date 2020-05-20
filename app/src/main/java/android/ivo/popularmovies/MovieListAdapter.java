@@ -1,5 +1,6 @@
 package android.ivo.popularmovies;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private int mTotalItems;
     private ArrayList<Movie> mMovies;
     private final MovieAdapterOnClickListener mClickListener;
+    private Context mContext;
 
-    MovieListAdapter(ArrayList<Movie> movies, MovieAdapterOnClickListener listClickListener) {
+    MovieListAdapter(ArrayList<Movie> movies, Context context) {
         mMovies = movies;
         mTotalItems = mMovies.size();
-        mClickListener = listClickListener;
+        mClickListener = (MovieAdapterOnClickListener)context;
+        mContext = context;
     }
 
     @NonNull
@@ -39,7 +42,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = mMovies.get(position);
         holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
 
-        Picasso.get().load(movie.getPosterPath()).into(holder.mMoviePoster);
+       String imageUrl = new MovieUriCreator(mContext)
+               .createImageQuery()
+               .imageSize(MovieUrlQueryImage.W185)
+               .fileName(movie.getPosterPath())
+                .create();
+
+        Picasso.get().load(imageUrl).into(holder.mMoviePoster);
     }
 
     @Override

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements
     private MovieListAdapter mMovieListAdapter;
     private ActivityMainBinding mBinding;
     private ArrayList<Movie> mMovies;
+    private MovieUriCreator mMovieUriCreator;
+
+    private static final String URL_BUNDLE_KEY = "urlAddress";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements
         View mainView = mBinding.getRoot();
         setContentView(mainView);
 
+        /* Initialize recycler view*/
         mRecyclerView = mBinding.rvMovies;
         mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(), this);
         GridLayoutManager gridLayoutManager =
@@ -45,36 +48,35 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieListAdapter);
 
+        /* Load URL query */
+        mMovieUriCreator = new MovieUriCreator(this);
+        Bundle bundle = new Bundle();
+
+        bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator
+                .createDiscoverQuery()
+                .create());
+
         LoaderManager loaderManager = LoaderManager.getInstance(this);
-        loaderManager.initLoader(0, null, this);
+        loaderManager.initLoader(0, bundle, this);
     }
 
     @NonNull
     @Override
     public Loader<List<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
-//        Uri uri = new MovieUriNav.Builder(this, "Key")
-//                .navigateToPopular()
-//                .sortBy(MovieUriNav.POPULARITY_DESC)
-//                .getUri();
-        Uri uri = new MovieUriNav.Builder(this, "Key")
-                .navigateToImage(MovieUriNav.W92, "filename.jpg")
-                .getUri();
-
-        Log.d(TAG, "onCreateLoader: " + uri.toString());
-
-        return new MovieLoaderTask(this);
+        String urlQuery = args.getString(URL_BUNDLE_KEY);
+        return new MovieLoaderTask(this, urlQuery);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Movie>> loader, List<Movie> data) {
         mMovies = new ArrayList<>(data);
+
         mMovieListAdapter = new MovieListAdapter(mMovies, this);
         mRecyclerView.setAdapter(mMovieListAdapter);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Movie>> loader) {
-
     }
 
     @Override
@@ -93,19 +95,28 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_sort_popular: {
-                Log.d(TAG, "onOptionsItemSelected: sorted by popularity");
-                // TODO: 1. Call the MovieUriNav get() to retrieve by popularity
-                return true;
-            }
-            case R.id.menu_sort_rating: {
-                Log.d(TAG, "onOptionsItemSelected: sorted by rating");
-                // TODO: 2. Call the MovieUriNav get() to retrieve by rating
-                return true;
-            }
-            default:
-                return false;
+        Bundle bundle = new Bundle();
+
+        if (item.getItemId() == R.id.menu_sort_popular) {
+            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
+                    .orderBy(MovieUrlQueryDiscover.POPULAR)
+                    .create());
+        } else if (item.getItemId() == R.id.menu_sort_rating) {
+            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
+                    .orderBy(MovieUrlQueryDiscover.TOP_RATED)
+                    .create());
+        } else if (item.getItemId() == R.id.menu_sort_now_playing) {
+            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
+                    .orderBy(MovieUrlQueryDiscover.NOW_PLAYING)
+                    .create());
+        } else if (item.getItemId() == R.id.menu_sort_upcoming) {
+            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
+                    .orderBy(MovieUrlQueryDiscover.UPCOMING)
+                    .create());
         }
+
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+        loaderManager.restartLoader(0, bundle, this);
+        return true;
     }
 }

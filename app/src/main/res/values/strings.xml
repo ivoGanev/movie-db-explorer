@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PopularMovies</string>
-    <string name="menu_popularity">sort by popularity</string>
-    <string name="menu_rating">sort by rating</string>
+    <string name="menu_popularity">Most Popular</string>
+    <string name="menu_rating">Top Rated</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="latest">Latest</string>
 
     <!-- API Parameters - For internal use only -->
-    <string name="param_sort_by_key">sort_by</string>
     <string name="param_api_key">api_key</string>
+
 </resources>
