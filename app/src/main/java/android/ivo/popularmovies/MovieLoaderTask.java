@@ -23,6 +23,7 @@ public class MovieLoaderTask extends AsyncTaskLoader<List<Movie>> {
     @Nullable
     @Override
     public List<Movie> loadInBackground() {
+
         Uri searchUri = Uri.parse(MOVIE_DB_URL);
         Uri builder = searchUri.buildUpon()
                 .appendQueryParameter("api_key", API_KEY)

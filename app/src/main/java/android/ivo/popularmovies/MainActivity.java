@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements
         mMovieListAdapter = new MovieListAdapter(new ArrayList<Movie>(), this);
         GridLayoutManager gridLayoutManager =
                 new GridLayoutManager(this, GRID_SPANS, RecyclerView.VERTICAL, false);
-
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieListAdapter);
+
         LoaderManager loaderManager = LoaderManager.getInstance(this);
         loaderManager.initLoader(0, null, this);
     }
@@ -51,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements
     @NonNull
     @Override
     public Loader<List<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
+        // TODO: Use a builder pattern to refactor the MovieUriNav class
+//        MovieUriNav nav = new MovieUriNav(this, "API_KEY");
+//        nav.getPopular();
+//        Uri uri = nav.sortBy(MovieUriNav.POPULARITY_DESC);
+//        Log.d(TAG, "onCreateLoader: " + uri.toString());
+
         return new MovieLoaderTask(this);
     }
 
@@ -85,10 +92,12 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.menu_sort_popular: {
                 Log.d(TAG, "onOptionsItemSelected: sorted by popularity");
+                // TODO: 1. Call the MovieUriNav get() to retrieve by popularity
                 return true;
             }
             case R.id.menu_sort_rating: {
                 Log.d(TAG, "onOptionsItemSelected: sorted by rating");
+                // TODO: 2. Call the MovieUriNav get() to retrieve by rating
                 return true;
             }
             default:

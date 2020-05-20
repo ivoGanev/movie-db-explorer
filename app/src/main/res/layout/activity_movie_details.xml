@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".MovieDetailsActivity">
 
+    <!-- TODO: Modify the appearance to be in a more presentable way -->
     <ImageView
         android:id="@+id/img_movie_detail"
         android:layout_width="match_parent"
