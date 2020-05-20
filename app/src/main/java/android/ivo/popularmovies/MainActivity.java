@@ -52,11 +52,15 @@ public class MainActivity extends AppCompatActivity implements
     @NonNull
     @Override
     public Loader<List<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
-        // TODO: Use a builder pattern to refactor the MovieUriNav class
-//        MovieUriNav nav = new MovieUriNav(this, "API_KEY");
-//        nav.getPopular();
-//        Uri uri = nav.sortBy(MovieUriNav.POPULARITY_DESC);
-//        Log.d(TAG, "onCreateLoader: " + uri.toString());
+//        Uri uri = new MovieUriNav.Builder(this, "Key")
+//                .navigateToPopular()
+//                .sortBy(MovieUriNav.POPULARITY_DESC)
+//                .getUri();
+        Uri uri = new MovieUriNav.Builder(this, "Key")
+                .navigateToImage(MovieUriNav.W92, "filename.jpg")
+                .getUri();
+
+        Log.d(TAG, "onCreateLoader: " + uri.toString());
 
         return new MovieLoaderTask(this);
     }
