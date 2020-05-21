@@ -2,8 +2,6 @@ package android.ivo.popularmovies;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
 
@@ -15,14 +13,14 @@ class MovieUrlQueryImage extends MovieUrlQuery {
     private static final String PATH = "t/p/";
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({W92, W185, ORIGINAL
+    @StringDef({W92, W185, W342
     })
     @interface ImageSize {
     }
 
     static final String W92 = "w92";
     static final String W185 = "w185";
-    static final String ORIGINAL = "original";
+    static final String W342 = "w342";
 
     private String mFileName;
     private String mImageSize;

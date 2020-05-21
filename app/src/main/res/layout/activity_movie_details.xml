@@ -7,31 +7,64 @@
     android:orientation="vertical"
     tools:context=".MovieDetailsActivity">
 
-    <!-- TODO: Modify the appearance to be in a more presentable way -->
     <ImageView
         android:id="@+id/img_movie_detail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/img_movie_height"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_foreground"
+        android:contentDescription="@string/cd_movie_poster" />
 
-    <TextView
-        android:id="@+id/tv_details_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Title" />
-    <TextView
-        android:id="@+id/tv_release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="12.5.2020" />
-    <TextView
-        android:id="@+id/tv_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Rating: 5" />
-    <TextView
-        android:id="@+id/tv_plot_synopsis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="What is it all about" />
+        android:orientation="vertical"
+        android:padding="@dimen/padding_normal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_toRightOf="@id/tv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toEndOf="@id/tv_rating"
+                android:layout_marginStart="@dimen/padding_normal">
+
+                <TextView
+                    android:id="@+id/tv_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_large"
+                    tools:text="Title" />
+
+                <TextView
+                    android:id="@+id/tv_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="12.5.2020" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_large"
+                tools:text="1" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/padding_normal"
+            android:id="@+id/tv_plot_synopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_normal"
+            tools:text="What is it all about" />
+    </LinearLayout>
 </LinearLayout>

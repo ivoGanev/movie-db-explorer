@@ -3,4 +3,7 @@
     <dimen name="img_movie_height">128dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="img_movie_width">260dp</dimen>
+    <dimen name="title_large">36sp</dimen>
+    <dimen name="text_normal">16sp</dimen>
+    <dimen name="text_large">24sp</dimen>
 </resources>
