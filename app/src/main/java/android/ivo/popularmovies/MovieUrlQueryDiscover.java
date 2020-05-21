@@ -26,7 +26,6 @@ public class MovieUrlQueryDiscover extends MovieUrlQuery {
 
     MovieUrlQueryDiscover(Context context, String apiKey) {
         super(context, apiKey);
-        // default is popular
         mOrderTypePath = POPULAR;
     }
 
