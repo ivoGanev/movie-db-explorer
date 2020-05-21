@@ -3,8 +3,6 @@ package android.ivo.popularmovies;
 import android.content.Context;
 import android.content.ContextWrapper;
 
-import androidx.core.util.Pair;
-
 public class MovieUriCreator extends ContextWrapper {
     private static final String API_KEY = "";
 

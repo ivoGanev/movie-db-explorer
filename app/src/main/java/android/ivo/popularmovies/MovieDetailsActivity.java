@@ -24,11 +24,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         Movie movie = i.getParcelableExtra("movie");
 
-        Picasso.get().load(movie.getPosterPath()).into(mBinding.imgMovieDetail);
+        String imageUrl = new MovieUriCreator(this)
+                .createImageQuery()
+                .imageSize(MovieUrlQueryImage.W92)
+                .fileName(movie.getPosterPath())
+                .create();
+
+        Picasso.get().load(imageUrl).into(mBinding.imgMovieDetail);
         mBinding.tvDetailsTitle.setText(movie.getTitle());
         mBinding.tvPlotSynopsis.setText(movie.getPlotSynopsis());
         mBinding.tvRating.setText(movie.getVoteAverage());
         mBinding.tvReleaseDate.setText(movie.getReleaseDate());
-     //   Toast.makeText(this, movie.toString(), Toast.LENGTH_SHORT).show();
+
+
+
+        //   Toast.makeText(this, movie.toString(), Toast.LENGTH_SHORT).show();
     }
 }

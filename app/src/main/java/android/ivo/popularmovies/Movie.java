@@ -3,6 +3,8 @@ package android.ivo.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class Movie implements Parcelable {
     private Movie(Parcel in) {
         mTitle = in.readString();
