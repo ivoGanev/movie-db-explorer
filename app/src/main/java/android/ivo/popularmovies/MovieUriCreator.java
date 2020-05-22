@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 
 public class MovieUriCreator extends ContextWrapper {
-    private static final String API_KEY = "";
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     public MovieUriCreator(Context base) {
         super(base);
