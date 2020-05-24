@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
+import android.ivo.popularmovies.movieDbUri.MovieUriCreator;
+import android.ivo.popularmovies.movieDbUri.MovieDbUriImage;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,11 +27,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         Movie movie = i.getParcelableExtra("movie");
 
-        String imageUrl = new MovieUriCreator(this)
+        String imageUrl = new MovieUriCreator()
                 .createImageQuery()
-                .imageSize(MovieUrlQueryImage.W342)
+                .imageSize(MovieDbUriImage.W342)
                 .fileName(movie.getPosterPath())
-                .create();
+                .fetch();
 
         Picasso.get().load(imageUrl).into(mBinding.imgMovieDetail);
         mBinding.tvDetailsTitle.setText(movie.getTitle());

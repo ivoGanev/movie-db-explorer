@@ -1,14 +1,13 @@
-package android.ivo.popularmovies;
-
-import android.content.Context;
+package android.ivo.popularmovies.movieDbUri;
 
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
-public class MovieUrlQueryDiscover extends MovieUrlQuery {
+public final class MovieDbUriDiscover extends MovieDbUri {
     private static final String AUTHORITY = "api.themoviedb.org";
     private static final String PATH = "3/movie/";
 
@@ -17,19 +16,19 @@ public class MovieUrlQueryDiscover extends MovieUrlQuery {
     @interface OrderType {
     }
 
-    static final String POPULAR = "popular";
-    static final String TOP_RATED = "top_rated";
-    static final String NOW_PLAYING = "now_playing";
-    static final String UPCOMING = "upcoming";
+    public static final String POPULAR = "popular";
+    public static final String TOP_RATED = "top_rated";
+    public static final String NOW_PLAYING = "now_playing";
+    public static final String UPCOMING = "upcoming";
 
     private String mOrderTypePath;
 
-    MovieUrlQueryDiscover(Context context, String apiKey) {
-        super(context, apiKey);
+    MovieDbUriDiscover(String apiKey) {
+        super(apiKey);
         mOrderTypePath = POPULAR;
     }
 
-    MovieUrlQuery orderBy(@OrderType String orderType) {
+    public MovieDbUri orderBy(@OrderType String orderType) {
         mOrderTypePath = orderType;
         return this;
     }
@@ -45,7 +44,7 @@ public class MovieUrlQueryDiscover extends MovieUrlQuery {
     }
 
     @Override
-    Pair<String, String> getQuery() {
+    protected List<Pair<String, String>> getQueries() {
         return null;
     }
 }

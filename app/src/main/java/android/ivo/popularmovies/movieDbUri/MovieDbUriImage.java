@@ -1,46 +1,46 @@
-package android.ivo.popularmovies;
-
-import android.content.Context;
+package android.ivo.popularmovies.movieDbUri;
 
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
-class MovieUrlQueryImage extends MovieUrlQuery {
+public class MovieDbUriImage extends MovieDbUri {
     private static final String AUTHORITY = "image.tmdb.org";
     private static final String PATH = "t/p/";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({W92, W185, W342
     })
-    @interface ImageSize {
+     @interface ImageSize {
     }
 
-    static final String W92 = "w92";
-    static final String W185 = "w185";
-    static final String W342 = "w342";
+    public static final String W92 = "w92";
+    public static final String W185 = "w185";
+    public static final String W342 = "w342";
 
     private String mFileName;
     private String mImageSize;
 
-    MovieUrlQueryImage(Context context, String apiKey) {
-        super(context, apiKey);
+    MovieDbUriImage(String apiKey) {
+        super(apiKey);
+        mImageSize = W185;
     }
 
-    MovieUrlQueryImage imageSize(@ImageSize String imageSize) {
+    public MovieDbUriImage imageSize(@ImageSize String imageSize) {
         mImageSize = imageSize;
         return this;
     }
 
-    MovieUrlQueryImage fileName(String fileName) {
+    public MovieDbUriImage fileName(String fileName) {
         mFileName = fileName;
         return this;
     }
 
     @Override
-    protected  String getPath() {
+    protected String getPath() {
         return PATH + mImageSize + mFileName;
     }
 
@@ -50,7 +50,7 @@ class MovieUrlQueryImage extends MovieUrlQuery {
     }
 
     @Override
-    Pair<String, String> getQuery() {
+    protected List<Pair<String, String>> getQueries() {
         return null;
     }
 

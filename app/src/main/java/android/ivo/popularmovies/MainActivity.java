@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
+import android.ivo.popularmovies.movieDbUri.MovieUriCreator;
+import android.ivo.popularmovies.movieDbUri.MovieDbUriDiscover;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,12 +50,12 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setAdapter(mMovieListAdapter);
 
         /* Load URL query */
-        mMovieUriCreator = new MovieUriCreator(this);
+        mMovieUriCreator = new MovieUriCreator();
         Bundle bundle = new Bundle();
 
         bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator
                 .createDiscoverQuery()
-                .create());
+                .fetch());
 
         LoaderManager loaderManager = LoaderManager.getInstance(this);
         loaderManager.initLoader(0, bundle, this);
@@ -99,20 +100,20 @@ public class MainActivity extends AppCompatActivity implements
 
         if (item.getItemId() == R.id.menu_sort_popular) {
             bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieUrlQueryDiscover.POPULAR)
-                    .create());
+                    .orderBy(MovieDbUriDiscover.POPULAR)
+                    .fetch());
         } else if (item.getItemId() == R.id.menu_sort_rating) {
             bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieUrlQueryDiscover.TOP_RATED)
-                    .create());
+                    .orderBy(MovieDbUriDiscover.TOP_RATED)
+                    .fetch());
         } else if (item.getItemId() == R.id.menu_sort_now_playing) {
             bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieUrlQueryDiscover.NOW_PLAYING)
-                    .create());
+                    .orderBy(MovieDbUriDiscover.NOW_PLAYING)
+                    .fetch());
         } else if (item.getItemId() == R.id.menu_sort_upcoming) {
             bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieUrlQueryDiscover.UPCOMING)
-                    .create());
+                    .orderBy(MovieDbUriDiscover.UPCOMING)
+                    .fetch());
         }
 
         LoaderManager loaderManager = LoaderManager.getInstance(this);
