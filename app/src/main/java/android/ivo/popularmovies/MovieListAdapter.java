@@ -1,8 +1,8 @@
 package android.ivo.popularmovies;
 
 import android.content.Context;
-import android.ivo.popularmovies.movieDbUri.MovieUriCreator;
-import android.ivo.popularmovies.movieDbUri.MovieDbUriImage;
+import android.ivo.popularmovies.uri.MovieUriCreator;
+import android.ivo.popularmovies.uri.MovieDbUriImage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

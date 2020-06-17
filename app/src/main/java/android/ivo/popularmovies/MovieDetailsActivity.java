@@ -1,13 +1,14 @@
 package android.ivo.popularmovies;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
-import android.ivo.popularmovies.movieDbUri.MovieUriCreator;
-import android.ivo.popularmovies.movieDbUri.MovieDbUriImage;
+import android.ivo.popularmovies.details.MovieDetailsPagerAdapter;
+
+import android.ivo.popularmovies.uri.MovieDbUriImage;
+import android.ivo.popularmovies.uri.MovieUriCreator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,11 +22,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
-        View v = mBinding.getRoot();
-        setContentView(v);
+        View view = mBinding.getRoot();
+
+        setContentView(view);
 
         Intent i = getIntent();
         Movie movie = i.getParcelableExtra("movie");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("movie", movie);
+
+        ViewPager viewPager = mBinding.vpMovieDetails;
+        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(), this, bundle));
+
+        mBinding.tlMovieDetails.setupWithViewPager(viewPager);
 
         String imageUrl = new MovieUriCreator()
                 .createImageQuery()
@@ -34,13 +43,5 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .fetch();
 
         Picasso.get().load(imageUrl).into(mBinding.imgMovieDetail);
-        mBinding.tvDetailsTitle.setText(movie.getTitle());
-        mBinding.tvPlotSynopsis.setText(movie.getPlotSynopsis());
-        mBinding.tvRating.setText(movie.getVoteAverage());
-        mBinding.tvReleaseDate.setText(movie.getReleaseDate());
-
-        GradientDrawable ratingCircle = (GradientDrawable)mBinding.tvRating.getBackground();
-        int color = movie.getRatingColor(this);
-        ratingCircle.setColor(color);
     }
 }
