@@ -40,21 +40,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mBinding.tvReleaseDate.setText(movie.getReleaseDate());
 
         GradientDrawable ratingCircle = (GradientDrawable)mBinding.tvRating.getBackground();
-        int color = getRatingColor(Double.parseDouble(movie.getVoteAverage()));
+        int color = movie.getRatingColor(this);
         ratingCircle.setColor(color);
-    }
-
-    private int getRatingColor(double rating) {
-        Log.d("TAG", "getRatingColor: " + rating);
-        if(rating>= 0 && rating <= 2)
-            return ContextCompat.getColor(this, R.color.rating_a);
-        else if(rating> 2 && rating <= 4)
-            return ContextCompat.getColor(this, R.color.rating_b);
-        else if(rating> 4 && rating <= 6)
-            return ContextCompat.getColor(this, R.color.rating_c);
-        else if(rating> 6 && rating <= 8)
-            return ContextCompat.getColor(this, R.color.rating_d);
-        else
-            return ContextCompat.getColor(this, R.color.rating_e);
     }
 }

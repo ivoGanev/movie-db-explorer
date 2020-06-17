@@ -1,9 +1,11 @@
 package android.ivo.popularmovies;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class Movie implements Parcelable {
     private Movie(Parcel in) {
@@ -108,6 +110,19 @@ public class Movie implements Parcelable {
         Movie build() {
             return new Movie(this);
         }
+    }
+
+    public int getRatingColor(Context context) {
+        if(mVoteAverage>= 0 && mVoteAverage <= 2)
+            return ContextCompat.getColor(context, R.color.rating_a);
+        else if(mVoteAverage> 2 && mVoteAverage <= 4)
+            return ContextCompat.getColor(context, R.color.rating_b);
+        else if(mVoteAverage> 4 && mVoteAverage <= 6)
+            return ContextCompat.getColor(context, R.color.rating_c);
+        else if(mVoteAverage> 6 && mVoteAverage <= 8)
+            return ContextCompat.getColor(context, R.color.rating_d);
+        else
+            return ContextCompat.getColor(context, R.color.rating_e);
     }
 
     @Override
