@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: This class needs to be refactored to work as a DI
 public class HttpUtilities {
     private static final String TAG = HttpUtilities.class.getSimpleName();
 
@@ -73,7 +74,6 @@ public class HttpUtilities {
             for (int i = 0; i < movies.length(); i++) {
                 JSONObject movieElement = movies.getJSONObject(i);
 
-                //TODO: Put this into MovieLoaderTask to for consistency
                 String posterFileName = movieElement.getString("poster_path");
                 posterFileName.replace("\\", "");
 

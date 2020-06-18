@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+// TODO: Replace Async loader with LiveData and ViewModel
 public class MovieLoaderTask extends AsyncTaskLoader<List<Movie>> {
     private static final String TAG = MovieLoaderTask.class.getSimpleName();
     private final String mUrlAddress;
