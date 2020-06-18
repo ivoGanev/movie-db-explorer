@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.movieDbUri;
+package android.ivo.popularmovies.uri;
 
 import android.ivo.popularmovies.BuildConfig;
 

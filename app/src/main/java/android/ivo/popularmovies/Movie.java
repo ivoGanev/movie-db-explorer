@@ -48,23 +48,23 @@ public class Movie implements Parcelable {
     private final String mPosterPath;
     private final double mVoteAverage;
 
-    String getTitle() {
+   public String getTitle() {
         return mTitle;
     }
 
-    String getReleaseDate() {
+    public String getReleaseDate() {
         return mReleaseDate;
     }
 
-    String getPlotSynopsis() {
+    public  String getPlotSynopsis() {
         return mPlotSynopsis;
     }
 
-    String getPosterPath() {
+    public String getPosterPath() {
         return mPosterPath;
     }
 
-    String getVoteAverage() {
+    public String getVoteAverage() {
         return Double.toString(mVoteAverage);
     }
 

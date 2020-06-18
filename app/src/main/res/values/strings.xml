@@ -8,5 +8,8 @@
     <!-- API Parameters - For internal use only -->
     <string name="param_api_key">api_key</string>
     <string name="cd_movie_poster">Movie Poster</string>
+    <string name="tab_trailer">Trailer</string>
+    <string name="tab_reviews">User Reviews</string>
+    <string name="tab_information">Information</string>
 
 </resources>

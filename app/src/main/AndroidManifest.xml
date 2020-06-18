@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MovieDetailsActivity"
+
+        <activity android:name=".details.MovieDetailsActivity"
             android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
 

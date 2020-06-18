@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.movieDbUri;
+package android.ivo.popularmovies.uri;
 
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
