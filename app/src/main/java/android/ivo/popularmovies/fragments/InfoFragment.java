@@ -1,11 +1,10 @@
 package android.ivo.popularmovies.fragments;
 
 import android.graphics.drawable.GradientDrawable;
-import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.component.Movie;
 
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class InfoFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             Movie movie = getArguments().getParcelable("movie");
-            Log.d("TAG", "onCreateView: aaa" + movie.getTitle());
+
             mBinding.tvDetailsTitle.setText(movie.getTitle());
             mBinding.tvPlotSynopsis.setText(movie.getPlotSynopsis());
             mBinding.tvRating.setText(movie.getVoteAverage());
@@ -35,6 +34,10 @@ public class InfoFragment extends Fragment {
             GradientDrawable ratingCircle = (GradientDrawable) mBinding.tvRating.getBackground();
             int color = movie.getRatingColor(requireContext());
             ratingCircle.setColor(color);
+
+//            for (Map.Entry<Class<? extends Component>, Component> classComponentEntry : movie.getComponents().entrySet()) {
+//                Log.d("TAG", "onCreateView: " + movie.getComponent(Review.class).toString());
+//            }
         } else {
             throw new IllegalStateException("A bundle with movie information should always be in the fragment's arguments.");
         }

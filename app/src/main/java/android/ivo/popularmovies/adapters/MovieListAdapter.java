@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
 import android.ivo.popularmovies.network.uri.DatabaseUriImage;

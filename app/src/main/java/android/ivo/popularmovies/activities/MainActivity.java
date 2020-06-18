@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.adapters.MovieListAdapter;
 import android.ivo.popularmovies.network.MovieLoaderTask;
 import android.ivo.popularmovies.R;
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements
     public void OnClick(int position) {
         Intent movieDetails = new Intent(this, DetailsActivity.class);
         Movie movie = mMovies.get(position);
+
         movieDetails.putExtra("movie", movie);
         startActivity(movieDetails);
     }

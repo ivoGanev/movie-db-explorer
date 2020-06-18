@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.network;
 
 import android.content.Context;
-import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.component.Movie;
 import android.util.Log;
 
 import androidx.annotation.NonNull;

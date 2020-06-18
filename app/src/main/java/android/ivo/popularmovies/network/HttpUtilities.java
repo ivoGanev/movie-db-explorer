@@ -1,6 +1,8 @@
 package android.ivo.popularmovies.network;
 
-import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.component.Review;
+import android.ivo.popularmovies.component.Trailer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +66,11 @@ public class HttpUtilities {
         return jsonResult.toString();
     }
 
+    private static String getReviewsJson()
+    {
+        return "";
+    }
+
     public static List<Movie> parseJsonToMovie(URL url) {
         List<Movie> result = new ArrayList<>();
         JSONObject jsonData = null;
@@ -75,15 +82,19 @@ public class HttpUtilities {
                 JSONObject movieElement = movies.getJSONObject(i);
 
                 String posterFileName = movieElement.getString("poster_path");
-                posterFileName.replace("\\", "");
+                posterFileName = posterFileName.replace("\\", "");
 
                 Movie movie = new Movie.Builder(movieElement.getString("original_title"))
                         .voteAverage(movieElement.getDouble("vote_average"))
                         .releaseDate(movieElement.getString("release_date"))
                         .plotSynopsis( movieElement.getString("overview"))
                         .posterPath(posterFileName)
+                        .id(movieElement.getInt("id"))
                         .build();
 
+                Review review = new Review("Hello", "" + movie.getId());
+                movie.addComponent(Review.class, review);
+                movie.addComponent(Trailer.class, new Trailer());
                 result.add(movie);
             }
 
