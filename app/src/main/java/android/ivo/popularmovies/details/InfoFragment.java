@@ -1,14 +1,9 @@
 package android.ivo.popularmovies.details;
 
-import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.ivo.popularmovies.Movie;
-import android.ivo.popularmovies.R;
 
-import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
-import android.ivo.popularmovies.uri.MovieDbUriImage;
-import android.ivo.popularmovies.uri.MovieUriCreator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +13,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.squareup.picasso.Picasso;
 
 public class InfoFragment extends Fragment {
     private FragmentMovieInfoBinding mBinding;
@@ -46,12 +39,6 @@ public class InfoFragment extends Fragment {
             throw new IllegalStateException("A bundle with movie information should always be in the fragment's arguments.");
         }
         return view;
-    }
-
-    public static Fragment newInstance(Bundle bundle) {
-        InfoFragment fragment = new InfoFragment();
-        fragment.setArguments(bundle);
-        return fragment;
     }
 
     @Override

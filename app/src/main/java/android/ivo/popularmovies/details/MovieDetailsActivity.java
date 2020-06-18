@@ -1,9 +1,10 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.details;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.ivo.popularmovies.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.details.MovieDetailsPagerAdapter;
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
+import android.ivo.popularmovies.details.MovieDetailsActivity;
 import android.ivo.popularmovies.uri.MovieUriCreator;
 import android.ivo.popularmovies.uri.MovieDbUriDiscover;
 import android.os.Bundle;
