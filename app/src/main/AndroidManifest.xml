@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".details.MovieDetailsActivity"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".activities.DetailsActivity"
+            android:parentActivityName=".activities.MainActivity"
             tools:targetApi="jelly_bean" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

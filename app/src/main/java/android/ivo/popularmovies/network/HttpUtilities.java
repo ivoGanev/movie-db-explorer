@@ -1,6 +1,6 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.network;
 
-import android.util.Log;
+import android.ivo.popularmovies.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-class HttpUtilities {
+public class HttpUtilities {
     private static final String TAG = HttpUtilities.class.getSimpleName();
 
     private HttpUtilities() {
@@ -63,7 +63,7 @@ class HttpUtilities {
         return jsonResult.toString();
     }
 
-    static List<Movie> parseJsonToMovie(URL url) {
+    public static List<Movie> parseJsonToMovie(URL url) {
         List<Movie> result = new ArrayList<>();
         JSONObject jsonData = null;
 

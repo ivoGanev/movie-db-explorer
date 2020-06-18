@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.details;
+package android.ivo.popularmovies.fragments;
 
 import android.graphics.drawable.GradientDrawable;
 import android.ivo.popularmovies.Movie;

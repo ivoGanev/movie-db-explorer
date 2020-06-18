@@ -48,7 +48,7 @@ public class Movie implements Parcelable {
     private final String mPosterPath;
     private final double mVoteAverage;
 
-   public String getTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
@@ -56,7 +56,7 @@ public class Movie implements Parcelable {
         return mReleaseDate;
     }
 
-    public  String getPlotSynopsis() {
+    public String getPlotSynopsis() {
         return mPlotSynopsis;
     }
 
@@ -68,8 +68,7 @@ public class Movie implements Parcelable {
         return Double.toString(mVoteAverage);
     }
 
-    private Movie(Builder builder)
-    {
+    private Movie(Builder builder) {
         mTitle = builder.mTitle;
         mReleaseDate = builder.mReleaseDate;
         mPlotSynopsis = builder.mPlotSynopsis;
@@ -77,49 +76,50 @@ public class Movie implements Parcelable {
         mVoteAverage = builder.mVoteAverage;
     }
 
-     static class Builder {
+    public static class Builder {
         private final String mTitle;
         private String mReleaseDate;
         private String mPlotSynopsis;
         private String mPosterPath;
         private double mVoteAverage;
 
-        Builder(String title)
-        {
+        public Builder(String title) {
             mTitle = title;
         }
 
-        Builder releaseDate(String releaseDate) {
+        public Builder releaseDate(String releaseDate) {
             mReleaseDate = releaseDate;
             return this;
         }
-        Builder plotSynopsis(String plotSynopsis) {
+
+        public Builder plotSynopsis(String plotSynopsis) {
             mPlotSynopsis = plotSynopsis;
             return this;
         }
-        Builder posterPath(String posterPath) {
+
+        public Builder posterPath(String posterPath) {
             mPosterPath = posterPath;
             return this;
         }
 
-        Builder voteAverage(double voteAverage) {
+        public Builder voteAverage(double voteAverage) {
             mVoteAverage = voteAverage;
             return this;
         }
 
-        Movie build() {
+        public Movie build() {
             return new Movie(this);
         }
     }
 
     public int getRatingColor(Context context) {
-        if(mVoteAverage>= 0 && mVoteAverage <= 2)
+        if (mVoteAverage >= 0 && mVoteAverage <= 2)
             return ContextCompat.getColor(context, R.color.rating_a);
-        else if(mVoteAverage> 2 && mVoteAverage <= 4)
+        else if (mVoteAverage > 2 && mVoteAverage <= 4)
             return ContextCompat.getColor(context, R.color.rating_b);
-        else if(mVoteAverage> 4 && mVoteAverage <= 6)
+        else if (mVoteAverage > 4 && mVoteAverage <= 6)
             return ContextCompat.getColor(context, R.color.rating_c);
-        else if(mVoteAverage> 6 && mVoteAverage <= 8)
+        else if (mVoteAverage > 6 && mVoteAverage <= 8)
             return ContextCompat.getColor(context, R.color.rating_d);
         else
             return ContextCompat.getColor(context, R.color.rating_e);

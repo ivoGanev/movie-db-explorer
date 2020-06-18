@@ -1,4 +1,4 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.adapters.MovieListAdapter;
+import android.ivo.popularmovies.network.MovieLoaderTask;
+import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
-import android.ivo.popularmovies.details.MovieDetailsActivity;
-import android.ivo.popularmovies.uri.MovieUriCreator;
-import android.ivo.popularmovies.uri.MovieDbUriDiscover;
+import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
+import android.ivo.popularmovies.network.uri.DatabaseUriDiscover;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements
     private MovieListAdapter mMovieListAdapter;
     private ActivityMainBinding mBinding;
     private ArrayList<Movie> mMovies;
-    private MovieUriCreator mMovieUriCreator;
+    private DatabaseUriCreator mDatabaseUriCreator;
 
     private static final String URL_BUNDLE_KEY = "urlAddress";
 
@@ -51,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setAdapter(mMovieListAdapter);
 
         /* Load URL query */
-        mMovieUriCreator = new MovieUriCreator();
+        mDatabaseUriCreator = new DatabaseUriCreator();
         Bundle bundle = new Bundle();
 
-        bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator
+        bundle.putString(URL_BUNDLE_KEY, mDatabaseUriCreator
                 .createDiscoverQuery()
                 .fetch());
 
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnClick(int position) {
-        Intent movieDetails = new Intent(this, MovieDetailsActivity.class);
+        Intent movieDetails = new Intent(this, DetailsActivity.class);
         Movie movie = mMovies.get(position);
         movieDetails.putExtra("movie", movie);
         startActivity(movieDetails);
@@ -100,20 +103,20 @@ public class MainActivity extends AppCompatActivity implements
         Bundle bundle = new Bundle();
 
         if (item.getItemId() == R.id.menu_sort_popular) {
-            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieDbUriDiscover.POPULAR)
+            bundle.putString(URL_BUNDLE_KEY, mDatabaseUriCreator.createDiscoverQuery()
+                    .orderBy(DatabaseUriDiscover.POPULAR)
                     .fetch());
         } else if (item.getItemId() == R.id.menu_sort_rating) {
-            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieDbUriDiscover.TOP_RATED)
+            bundle.putString(URL_BUNDLE_KEY, mDatabaseUriCreator.createDiscoverQuery()
+                    .orderBy(DatabaseUriDiscover.TOP_RATED)
                     .fetch());
         } else if (item.getItemId() == R.id.menu_sort_now_playing) {
-            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieDbUriDiscover.NOW_PLAYING)
+            bundle.putString(URL_BUNDLE_KEY, mDatabaseUriCreator.createDiscoverQuery()
+                    .orderBy(DatabaseUriDiscover.NOW_PLAYING)
                     .fetch());
         } else if (item.getItemId() == R.id.menu_sort_upcoming) {
-            bundle.putString(URL_BUNDLE_KEY, mMovieUriCreator.createDiscoverQuery()
-                    .orderBy(MovieDbUriDiscover.UPCOMING)
+            bundle.putString(URL_BUNDLE_KEY, mDatabaseUriCreator.createDiscoverQuery()
+                    .orderBy(DatabaseUriDiscover.UPCOMING)
                     .fetch());
         }
 

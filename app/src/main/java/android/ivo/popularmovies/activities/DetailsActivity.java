@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.details;
+package android.ivo.popularmovies.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,17 +6,16 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.ivo.popularmovies.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
-import android.ivo.popularmovies.details.MovieDetailsPagerAdapter;
+import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
-import android.ivo.popularmovies.uri.MovieDbUriImage;
-import android.ivo.popularmovies.uri.MovieUriCreator;
+import android.ivo.popularmovies.network.uri.DatabaseUriImage;
+import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity {
     ActivityMovieDetailsBinding mBinding;
 
     @Override
@@ -33,13 +32,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         bundle.putParcelable("movie", movie);
 
         ViewPager viewPager = mBinding.vpMovieDetails;
-        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(), this, bundle));
+        viewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), this, bundle));
 
         mBinding.tlMovieDetails.setupWithViewPager(viewPager);
 
-        String imageUrl = new MovieUriCreator()
+        String imageUrl = new DatabaseUriCreator()
                 .createImageQuery()
-                .imageSize(MovieDbUriImage.W342)
+                .imageSize(DatabaseUriImage.W342)
                 .fileName(movie.getPosterPath())
                 .fetch();
 

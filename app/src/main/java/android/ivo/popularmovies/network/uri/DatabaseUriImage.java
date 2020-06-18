@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.uri;
+package android.ivo.popularmovies.network.uri;
 
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
-public class MovieDbUriImage extends MovieDbUri {
+public class DatabaseUriImage extends DatabaseUri {
     private static final String AUTHORITY = "image.tmdb.org";
     private static final String PATH = "t/p/";
 
@@ -24,17 +24,17 @@ public class MovieDbUriImage extends MovieDbUri {
     private String mFileName;
     private String mImageSize;
 
-    MovieDbUriImage(String apiKey) {
+    DatabaseUriImage(String apiKey) {
         super(apiKey);
         mImageSize = W185;
     }
 
-    public MovieDbUriImage imageSize(@ImageSize String imageSize) {
+    public DatabaseUriImage imageSize(@ImageSize String imageSize) {
         mImageSize = imageSize;
         return this;
     }
 
-    public MovieDbUriImage fileName(String fileName) {
+    public DatabaseUriImage fileName(String fileName) {
         mFileName = fileName;
         return this;
     }

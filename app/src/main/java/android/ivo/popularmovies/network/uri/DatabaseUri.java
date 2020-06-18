@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.uri;
+package android.ivo.popularmovies.network.uri;
 
 import android.net.Uri;
 
@@ -6,13 +6,13 @@ import androidx.core.util.Pair;
 
 import java.util.List;
 
-public abstract class MovieDbUri {
-    private static final String TAG = MovieDbUri.class.getSimpleName();
+public abstract class DatabaseUri {
+    private static final String TAG = DatabaseUri.class.getSimpleName();
     private static final String API_QUERY_KEY = "api_key";
     private final static String SCHEME = "https";
     private String mApiKey;
 
-    MovieDbUri(String apiKey) {
+    DatabaseUri(String apiKey) {
         mApiKey = apiKey;
     }
 

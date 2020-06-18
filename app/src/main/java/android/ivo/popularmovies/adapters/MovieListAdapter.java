@@ -1,8 +1,10 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.uri.MovieUriCreator;
-import android.ivo.popularmovies.uri.MovieDbUriImage;
+import android.ivo.popularmovies.Movie;
+import android.ivo.popularmovies.R;
+import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
+import android.ivo.popularmovies.network.uri.DatabaseUriImage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private ArrayList<Movie> mMovies;
     private final MovieAdapterOnClickListener mClickListener;
 
-    MovieListAdapter(ArrayList<Movie> movies, Context context) {
+    public MovieListAdapter(ArrayList<Movie> movies, Context context) {
         mMovies = movies;
         mTotalItems = mMovies.size();
         mClickListener = (MovieAdapterOnClickListener) context;
@@ -41,9 +43,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = mMovies.get(position);
         holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
 
-        String imageUrl = new MovieUriCreator()
+        String imageUrl = new DatabaseUriCreator()
                 .createImageQuery()
-                .imageSize(MovieDbUriImage.W185)
+                .imageSize(DatabaseUriImage.W185)
                 .fileName(movie.getPosterPath())
                 .fetch();
 

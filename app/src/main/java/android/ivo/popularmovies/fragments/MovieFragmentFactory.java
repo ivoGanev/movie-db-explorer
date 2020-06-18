@@ -1,4 +1,4 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.fragments;
 
 import android.os.Bundle;
 

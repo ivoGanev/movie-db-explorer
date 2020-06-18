@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.uri;
+package android.ivo.popularmovies.network.uri;
 
 import androidx.annotation.StringDef;
 import androidx.core.util.Pair;
@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
-public final class MovieDbUriDiscover extends MovieDbUri {
+public final class DatabaseUriDiscover extends DatabaseUri {
     private static final String AUTHORITY = "api.themoviedb.org";
     private static final String PATH = "3/movie/";
 
@@ -23,12 +23,12 @@ public final class MovieDbUriDiscover extends MovieDbUri {
 
     private String mOrderTypePath;
 
-    MovieDbUriDiscover(String apiKey) {
+    DatabaseUriDiscover(String apiKey) {
         super(apiKey);
         mOrderTypePath = POPULAR;
     }
 
-    public MovieDbUri orderBy(@OrderType String orderType) {
+    public DatabaseUri orderBy(@OrderType String orderType) {
         mOrderTypePath = orderType;
         return this;
     }

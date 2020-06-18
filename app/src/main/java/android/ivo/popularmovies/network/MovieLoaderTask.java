@@ -1,7 +1,7 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.network;
 
 import android.content.Context;
-import android.net.Uri;
+import android.ivo.popularmovies.Movie;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,14 +10,13 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieLoaderTask extends AsyncTaskLoader<List<Movie>> {
     private static final String TAG = MovieLoaderTask.class.getSimpleName();
     private final String mUrlAddress;
 
-    MovieLoaderTask(@NonNull Context context, String urlAddress) {
+    public MovieLoaderTask(@NonNull Context context, String urlAddress) {
         super(context);
         mUrlAddress = urlAddress;
     }
