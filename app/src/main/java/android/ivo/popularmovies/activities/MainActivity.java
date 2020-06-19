@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.adapters.MovieListAdapter;
+import android.ivo.popularmovies.fragments.MovieBundledFragment;
 import android.ivo.popularmovies.network.MovieLoaderTask;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
         Intent movieDetails = new Intent(this, DetailsActivity.class);
         Movie movie = mMovies.get(position);
 
-        movieDetails.putExtra("movie", movie);
+        movieDetails.putExtra(BundleKeys.MOVIE_BUNDLE_KEY, movie);
         startActivity(movieDetails);
     }
 

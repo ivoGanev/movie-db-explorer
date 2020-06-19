@@ -18,9 +18,8 @@ public class UserReviewsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentMovieReviewsBinding.inflate(inflater, container, false);
-        View view = mBinding.getRoot();
 
-        return view;
+        return mBinding.getRoot();
     }
 
     @Override

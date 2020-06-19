@@ -34,6 +34,7 @@ public class Movie extends Composite implements Parcelable {
         mPosterPath = in.readString();
         mVoteAverage = in.readDouble();
         mId = in.readInt();
+
     }
 
     private Movie(Builder builder) {
@@ -63,6 +64,7 @@ public class Movie extends Composite implements Parcelable {
         dest.writeInt(mId);
     }
 
+
     public String getTitle() {
         return mTitle;
     }
@@ -85,6 +87,7 @@ public class Movie extends Composite implements Parcelable {
 
     public int getId() { return mId; }
 
+    // TODO: Move this method to a proper place
     public int getRatingColor(Context context) {
         if (mVoteAverage >= 0 && mVoteAverage <= 2)
             return ContextCompat.getColor(context, R.color.rating_a);

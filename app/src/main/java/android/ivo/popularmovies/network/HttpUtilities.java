@@ -1,5 +1,7 @@
 package android.ivo.popularmovies.network;
 
+import android.ivo.popularmovies.component.ComposedObject;
+import android.ivo.popularmovies.component.Composite;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.component.Review;
 import android.ivo.popularmovies.component.Trailer;
@@ -84,6 +86,7 @@ public class HttpUtilities {
                 String posterFileName = movieElement.getString("poster_path");
                 posterFileName = posterFileName.replace("\\", "");
 
+
                 Movie movie = new Movie.Builder(movieElement.getString("original_title"))
                         .voteAverage(movieElement.getDouble("vote_average"))
                         .releaseDate(movieElement.getString("release_date"))
@@ -96,6 +99,10 @@ public class HttpUtilities {
                 movie.addComponent(Review.class, review);
                 movie.addComponent(Trailer.class, new Trailer());
                 result.add(movie);
+
+//                ComposedObject<Movie> root = new ComposedObject<>(new Composite(), movie);
+//                root.getComposition().addComponent(Review.class, review);
+//                root.getComposition().addComponent(Trailer.class, new Trailer());
             }
 
         } catch (JSONException e) {

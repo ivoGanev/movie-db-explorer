@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.fragments.MovieFragmentFactory;
+import android.ivo.popularmovies.fragments.BundledFragmentFactory;
 import android.ivo.popularmovies.R;
 
 import android.ivo.popularmovies.fragments.InfoFragment;
@@ -24,6 +24,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
         super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         mBundle = bundle;
+
     }
 
     @NonNull
@@ -31,11 +32,11 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-            return new MovieFragmentFactory.Create<InfoFragment>().newInstance(InfoFragment.class, mBundle);
+                return BundledFragmentFactory.createFragment(InfoFragment.class, mBundle);
             case 1:
-                return new MovieFragmentFactory.Create<UserReviewsFragment>().newInstance(UserReviewsFragment.class, mBundle);
+                return BundledFragmentFactory.createFragment(UserReviewsFragment.class, mBundle);
             case 2:
-            return new MovieFragmentFactory.Create<TrailerFragment>().newInstance(TrailerFragment.class, mBundle);
+                return BundledFragmentFactory.createFragment(TrailerFragment.class, mBundle);
             default:
                 throw new IllegalStateException("Unexpected value: " + position);
         }

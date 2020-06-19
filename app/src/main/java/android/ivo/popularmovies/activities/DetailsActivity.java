@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
@@ -12,8 +13,12 @@ import android.ivo.popularmovies.network.uri.DatabaseUriImage;
 import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.squareup.picasso.Picasso;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
     ActivityMovieDetailsBinding mBinding;
@@ -27,9 +32,9 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(view);
 
         Intent i = getIntent();
-        Movie movie = i.getParcelableExtra("movie");
+        Movie movie = i.getParcelableExtra(BundleKeys.MOVIE_BUNDLE_KEY);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("movie", movie);
+        bundle.putParcelable(BundleKeys.MOVIE_BUNDLE_KEY, movie);
 
         ViewPager viewPager = mBinding.vpMovieDetails;
         viewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), this, bundle));
