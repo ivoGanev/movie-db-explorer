@@ -66,46 +66,37 @@ public class HttpUtilities {
         return jsonResult.toString();
     }
 
-    private static String getReviewsJson()
-    {
+    private static String getReviewsJson() {
         return "";
     }
 
     public static List<Movie> parseJsonToMovie(URL url) {
+        String json = getJsonData(url);
+
+        MovieQueryConverter movieQueryConverter = new MovieQueryConverter();
         List<Movie> result = new ArrayList<>();
-        JSONObject jsonData = null;
 
+        JSONObject movieObject;
         try {
-            jsonData = new JSONObject(getJsonData(url));
-            JSONArray movies = jsonData.getJSONArray("results");
-            for (int i = 0; i < movies.length(); i++) {
-                JSONObject movieElement = movies.getJSONObject(i);
+            movieObject = new JSONObject(json);
+            JSONArray array = movieObject.getJSONArray("results");
+            for (int i = 0; i < array.length(); i++) {
+                Movie movie = movieQueryConverter.convert(array.getJSONObject(i));
 
-                String posterFileName = movieElement.getString("poster_path");
-                posterFileName = posterFileName.replace("\\", "");
+                // TODO: Change mock data to real API data
+                movie.addComponent(Review.class, new Review("Morning", "Sunshine"));
+                movie.addComponent(Review.class, new Review("Excellent", "Choice"));
+                movie.addComponent(Review.class, new Review("Intriguing", "Proposition"));
 
-
-                Movie movie = new Movie.Builder(movieElement.getString("original_title"))
-                        .voteAverage(movieElement.getDouble("vote_average"))
-                        .releaseDate(movieElement.getString("release_date"))
-                        .plotSynopsis( movieElement.getString("overview"))
-                        .posterPath(posterFileName)
-                        .id(movieElement.getInt("id"))
-                        .build();
-
-                Review review = new Review("Hello", "" + movie.getId());
-                movie.addComponent(Review.class, review);
-                movie.addComponent(Trailer.class, new Trailer());
                 result.add(movie);
-
-//                ComposedObject<Movie> root = new ComposedObject<>(new Composite(), movie);
-//                root.getComposition().addComponent(Review.class, review);
-//                root.getComposition().addComponent(Trailer.class, new Trailer());
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+//        ReviewQueryConverter reviewQueryConverter = new ReviewQueryConverter();
+//        List<Review> reviews = reviewQueryConverter.convert()
         return result;
     }
 }
