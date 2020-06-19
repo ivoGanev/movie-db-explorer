@@ -13,12 +13,8 @@ import android.ivo.popularmovies.network.uri.DatabaseUriImage;
 import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.squareup.picasso.Picasso;
-
-import java.lang.reflect.Array;
-import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
     ActivityMovieDetailsBinding mBinding;

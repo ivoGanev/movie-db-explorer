@@ -24,7 +24,6 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
         super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         mBundle = bundle;
-
     }
 
     @NonNull
@@ -61,5 +60,4 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return COUNT;
     }
-
 }

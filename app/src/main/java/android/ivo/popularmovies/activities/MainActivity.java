@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.adapters.MovieListAdapter;
-import android.ivo.popularmovies.fragments.MovieBundledFragment;
 import android.ivo.popularmovies.network.MovieLoaderTask;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;

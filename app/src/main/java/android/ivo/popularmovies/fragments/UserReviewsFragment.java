@@ -1,30 +1,23 @@
 package android.ivo.popularmovies.fragments;
 
+import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.databinding.FragmentMovieReviewsBinding;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
-public class UserReviewsFragment extends Fragment {
-    FragmentMovieReviewsBinding mBinding;
-
-    @Nullable
+public class UserReviewsFragment extends MovieBundledFragment {
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentMovieReviewsBinding.inflate(inflater, container, false);
+    void onBundleLoad(Movie movie) {
 
-        return mBinding.getRoot();
     }
 
     @Override
-    public void onDestroy() {
-        mBinding = null;
-        super.onDestroy();
+    public ViewBinding getViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentMovieReviewsBinding.inflate(inflater,container,false);
     }
 }

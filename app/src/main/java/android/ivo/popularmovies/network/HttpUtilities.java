@@ -1,7 +1,5 @@
 package android.ivo.popularmovies.network;
 
-import android.ivo.popularmovies.component.ComposedObject;
-import android.ivo.popularmovies.component.Composite;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.component.Review;
 import android.ivo.popularmovies.component.Trailer;
