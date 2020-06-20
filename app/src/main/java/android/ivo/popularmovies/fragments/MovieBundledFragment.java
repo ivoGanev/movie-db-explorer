@@ -25,7 +25,7 @@ public abstract class MovieBundledFragment extends Fragment {
         mViewBinding = getViewBinding(inflater, container);
 
         if (mViewBinding == null)
-            throw new IllegalStateException("Cannot create a view without a View Binding. Ensure you present a view in getViewBinding");
+            throw new IllegalStateException("Cannot create a view without a View Binding. Ensure you present a view with getViewBinding");
 
         Bundle bundle = getArguments();
         if (bundle != null) {

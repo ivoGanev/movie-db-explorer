@@ -1,6 +1,7 @@
 package android.ivo.popularmovies.fragments;
 
 import android.graphics.drawable.GradientDrawable;
+import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.component.Movie;
 
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.viewbinding.ViewBinding;
 
 public class InfoFragment extends MovieBundledFragment {
@@ -28,7 +30,21 @@ public class InfoFragment extends MovieBundledFragment {
         binding.tvReleaseDate.setText(movie.getReleaseDate());
 
         GradientDrawable ratingCircle = (GradientDrawable) binding.tvRating.getBackground();
-        int color = movie.getRatingColor(requireContext());
+        int color = getRatingColor(Double.parseDouble(movie.getVoteAverage()));
         ratingCircle.setColor(color);
     }
+
+    private int getRatingColor(double rating) {
+        if (rating >= 0 && rating <= 2)
+            return ContextCompat.getColor(requireContext(), R.color.rating_a);
+        else if (rating > 2 && rating <= 4)
+            return ContextCompat.getColor(requireContext(), R.color.rating_b);
+        else if (rating > 4 && rating <= 6)
+            return ContextCompat.getColor(requireContext(), R.color.rating_c);
+        else if (rating > 6 && rating <= 8)
+            return ContextCompat.getColor(requireContext(), R.color.rating_d);
+        else
+            return ContextCompat.getColor(requireContext(), R.color.rating_e);
+    }
+
 }

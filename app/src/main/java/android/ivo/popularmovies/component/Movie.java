@@ -1,13 +1,9 @@
 package android.ivo.popularmovies.component;
 
-import android.content.Context;
-import android.ivo.popularmovies.R;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.core.content.ContextCompat;
-
-public class Movie extends Composite implements Parcelable {
+public class Movie implements Parcelable {
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel in) {
@@ -19,22 +15,25 @@ public class Movie extends Composite implements Parcelable {
             return new Movie[size];
         }
     };
+
     private final String mTitle;
     private final String mReleaseDate;
     private final String mPlotSynopsis;
     private final String mPosterPath;
     private final double mVoteAverage;
     private final int mId;
+    private Review mReview;
+    private Trailer mTrailer;
 
     private Movie(Parcel in) {
-        super(in);
         mTitle = in.readString();
         mReleaseDate = in.readString();
         mPlotSynopsis = in.readString();
         mPosterPath = in.readString();
         mVoteAverage = in.readDouble();
         mId = in.readInt();
-
+        mReview = in.readParcelable(Review.class.getClassLoader());
+        mTrailer = in.readParcelable(Trailer.class.getClassLoader());
     }
 
     private Movie(Builder builder) {
@@ -45,6 +44,8 @@ public class Movie extends Composite implements Parcelable {
         mPosterPath = builder.mPosterPath;
         mVoteAverage = builder.mVoteAverage;
         mId = builder.mId;
+        mReview = builder.mReview;
+        mTrailer = builder.mTrailer;
     }
 
     @Override
@@ -54,16 +55,15 @@ public class Movie extends Composite implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-
         dest.writeString(mTitle);
         dest.writeString(mReleaseDate);
         dest.writeString(mPlotSynopsis);
         dest.writeString(mPosterPath);
         dest.writeDouble(mVoteAverage);
         dest.writeInt(mId);
+        dest.writeParcelable(mReview, 0);
+        dest.writeParcelable(mTrailer, 0);
     }
-
 
     public String getTitle() {
         return mTitle;
@@ -85,21 +85,11 @@ public class Movie extends Composite implements Parcelable {
         return Double.toString(mVoteAverage);
     }
 
-    public int getId() { return mId; }
+    public Review getReview() { return mReview; }
 
-    // TODO: Move this method to a proper place
-    public int getRatingColor(Context context) {
-        if (mVoteAverage >= 0 && mVoteAverage <= 2)
-            return ContextCompat.getColor(context, R.color.rating_a);
-        else if (mVoteAverage > 2 && mVoteAverage <= 4)
-            return ContextCompat.getColor(context, R.color.rating_b);
-        else if (mVoteAverage > 4 && mVoteAverage <= 6)
-            return ContextCompat.getColor(context, R.color.rating_c);
-        else if (mVoteAverage > 6 && mVoteAverage <= 8)
-            return ContextCompat.getColor(context, R.color.rating_d);
-        else
-            return ContextCompat.getColor(context, R.color.rating_e);
-    }
+    public Trailer getTrailer() { return mTrailer; }
+
+    public int getId() { return mId; }
 
     @Override
     public String toString() {
@@ -119,6 +109,8 @@ public class Movie extends Composite implements Parcelable {
         private String mPosterPath;
         private double mVoteAverage;
         private int mId;
+        private Review mReview;
+        private Trailer mTrailer;
 
         public Builder(String title) {
             mTitle = title;
@@ -146,6 +138,16 @@ public class Movie extends Composite implements Parcelable {
 
         public Builder id(int id) {
             mId = id;
+            return this;
+        }
+
+        public Builder trailer(Trailer trailer) {
+            mTrailer = trailer;
+            return this;
+        }
+
+        public Builder review(Review review) {
+            mReview = review;
             return this;
         }
 

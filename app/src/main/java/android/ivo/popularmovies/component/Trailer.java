@@ -1,8 +1,9 @@
 package android.ivo.popularmovies.component;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Trailer extends Component {
+public class Trailer implements Parcelable {
     public Trailer()
     {
 

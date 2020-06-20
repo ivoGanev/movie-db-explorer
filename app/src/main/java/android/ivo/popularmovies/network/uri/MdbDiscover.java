@@ -7,13 +7,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
-public final class DatabaseUriDiscover extends DatabaseUri {
+public final class MdbDiscover extends MdbUri {
     private static final String AUTHORITY = "api.themoviedb.org";
     private static final String PATH = "3/movie/";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({POPULAR, TOP_RATED, NOW_PLAYING, UPCOMING})
-    @interface OrderType {
+   public  @interface OrderType {
     }
 
     public static final String POPULAR = "popular";
@@ -23,12 +23,12 @@ public final class DatabaseUriDiscover extends DatabaseUri {
 
     private String mOrderTypePath;
 
-    DatabaseUriDiscover(String apiKey) {
+    public MdbDiscover(String apiKey) {
         super(apiKey);
         mOrderTypePath = POPULAR;
     }
 
-    public DatabaseUri orderBy(@OrderType String orderType) {
+    public MdbUri orderBy(@OrderType String orderType) {
         mOrderTypePath = orderType;
         return this;
     }

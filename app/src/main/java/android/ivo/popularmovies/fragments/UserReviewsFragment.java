@@ -13,7 +13,7 @@ import androidx.viewbinding.ViewBinding;
 public class UserReviewsFragment extends MovieBundledFragment {
     @Override
     void onBundleLoad(Movie movie) {
-
+        FragmentMovieReviewsBinding binding = (FragmentMovieReviewsBinding) getInflatedViewBinding();
     }
 
     @Override

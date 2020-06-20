@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
-public class DatabaseUriImage extends DatabaseUri {
+public class MdbImage extends MdbUri {
     private static final String AUTHORITY = "image.tmdb.org";
     private static final String PATH = "t/p/";
 
@@ -24,17 +24,17 @@ public class DatabaseUriImage extends DatabaseUri {
     private String mFileName;
     private String mImageSize;
 
-    DatabaseUriImage(String apiKey) {
+    public MdbImage(String apiKey) {
         super(apiKey);
         mImageSize = W185;
     }
 
-    public DatabaseUriImage imageSize(@ImageSize String imageSize) {
+    public MdbImage imageSize(@ImageSize String imageSize) {
         mImageSize = imageSize;
         return this;
     }
 
-    public DatabaseUriImage fileName(String fileName) {
+    public MdbImage fileName(String fileName) {
         mFileName = fileName;
         return this;
     }

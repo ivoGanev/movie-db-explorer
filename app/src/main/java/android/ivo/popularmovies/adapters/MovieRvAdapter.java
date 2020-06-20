@@ -3,8 +3,8 @@ package android.ivo.popularmovies.adapters;
 import android.content.Context;
 import android.ivo.popularmovies.component.Movie;
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.network.uri.DatabaseUriCreator;
-import android.ivo.popularmovies.network.uri.DatabaseUriImage;
+import android.ivo.popularmovies.network.ApiHandler;
+import android.ivo.popularmovies.network.uri.MdbImage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +18,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
+public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieViewHolder> {
     private static final String TAG = "MovieListAdapter";
     private int mTotalItems;
     private ArrayList<Movie> mMovies;
     private final MovieAdapterOnClickListener mClickListener;
 
-    public MovieListAdapter(ArrayList<Movie> movies, Context context) {
+    public MovieRvAdapter(ArrayList<Movie> movies, Context context) {
         mMovies = movies;
         mTotalItems = mMovies.size();
         mClickListener = (MovieAdapterOnClickListener) context;
@@ -34,7 +34,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.activity_movie_item, parent, false);
+                R.layout.activity_movie_rv_item, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -43,11 +43,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = mMovies.get(position);
         holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
 
-        String imageUrl = new DatabaseUriCreator()
-                .createImageQuery()
-                .imageSize(DatabaseUriImage.W185)
+        String imageUrl = ApiHandler.UrlAddressBook
+                .queryImageAddress()
+                .imageSize(MdbImage.W185)
                 .fileName(movie.getPosterPath())
-                .fetch();
+                .get();
 
         Picasso.get().load(imageUrl).into(holder.mMoviePoster);
     }

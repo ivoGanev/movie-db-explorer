@@ -6,13 +6,13 @@ import androidx.core.util.Pair;
 
 import java.util.List;
 
-public abstract class DatabaseUri {
-    private static final String TAG = DatabaseUri.class.getSimpleName();
+public abstract class MdbUri {
+    private static final String TAG = MdbUri.class.getSimpleName();
     private static final String API_QUERY_KEY = "api_key";
     private final static String SCHEME = "https";
     private String mApiKey;
 
-    DatabaseUri(String apiKey) {
+    MdbUri(String apiKey) {
         mApiKey = apiKey;
     }
 
@@ -20,7 +20,7 @@ public abstract class DatabaseUri {
 
     protected abstract String getAuthority();
 
-    public String fetch() {
+    public String get() {
         Uri.Builder uri = new Uri.Builder()
                 .scheme(SCHEME)
                 .authority(getAuthority())

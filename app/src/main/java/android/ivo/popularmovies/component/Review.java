@@ -1,9 +1,9 @@
 package android.ivo.popularmovies.component;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Review extends Component
-{
+public class Review implements Parcelable {
     private Review(Parcel in) {
         mAuthor = in.readString();
         mReview = in.readString();
