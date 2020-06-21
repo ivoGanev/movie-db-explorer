@@ -1,6 +1,6 @@
 package android.ivo.popularmovies.fragments;
 
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 import android.ivo.popularmovies.databinding.FragmentMovieReviewsBinding;
 
 import android.view.LayoutInflater;

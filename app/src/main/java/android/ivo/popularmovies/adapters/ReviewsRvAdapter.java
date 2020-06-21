@@ -1,8 +1,7 @@
 package android.ivo.popularmovies.adapters;
 
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.component.Review;
-import android.ivo.popularmovies.databinding.ActivityMovieRvItemBinding;
+import android.ivo.popularmovies.network.apimodels.Review;
 import android.ivo.popularmovies.databinding.FragmentReviewsRvItemBinding;
 import android.view.LayoutInflater;
 import android.view.View;

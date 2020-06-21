@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.network;
 
 import android.ivo.popularmovies.BuildConfig;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.ivo.popularmovies.network.uri.MdbImage;
 
@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class ApiHandler {
+public class ApiClient {
     // needs to be asynchronous
     private String fetchJsonData(String urlAddress) {
         URL url = null;
@@ -71,8 +71,8 @@ public class ApiHandler {
                 .get();
 
         String json = fetchJsonData(urlAddress);
-        MdbJsonToObjectConverter converter = new MdbJsonToObjectConverter();
-        return converter.toMovieList(json);
+        ApiObjectModeler modeler = new ApiObjectModeler();
+        return modeler.toMovieList(json);
     }
 
     public static class UrlAddressBook {

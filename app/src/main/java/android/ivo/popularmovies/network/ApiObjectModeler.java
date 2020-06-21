@@ -1,5 +1,5 @@
 package android.ivo.popularmovies.network;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MdbJsonToObjectConverter {
+class ApiObjectModeler {
     Movie toMovie(JSONObject movieJson) {
         Movie movie = null;
         try {

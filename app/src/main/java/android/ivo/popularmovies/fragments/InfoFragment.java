@@ -2,7 +2,7 @@ package android.ivo.popularmovies.fragments;
 
 import android.graphics.drawable.GradientDrawable;
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
 import android.view.LayoutInflater;

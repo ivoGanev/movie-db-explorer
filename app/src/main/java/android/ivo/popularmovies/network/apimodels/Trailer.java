@@ -1,4 +1,4 @@
-package android.ivo.popularmovies.component;
+package android.ivo.popularmovies.network.apimodels;
 
 import android.os.Parcel;
 import android.os.Parcelable;

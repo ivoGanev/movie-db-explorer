@@ -1,17 +1,15 @@
 package android.ivo.popularmovies.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
-import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
-import android.ivo.popularmovies.network.ApiHandler;
+import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         mBinding.tlMovieDetails.setupWithViewPager(viewPager);
 
-        String imageUrl = ApiHandler.UrlAddressBook
+        String imageUrl = ApiClient.UrlAddressBook
                 .queryImageAddress()
                 .imageSize(MdbImage.W342)
                 .fileName(movie.getPosterPath())

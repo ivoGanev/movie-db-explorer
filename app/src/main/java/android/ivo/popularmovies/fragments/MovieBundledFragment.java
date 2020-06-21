@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.fragments;
 
 import android.ivo.popularmovies.BundleKeys;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

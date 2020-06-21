@@ -1,9 +1,9 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.component.Movie;
+import android.ivo.popularmovies.network.apimodels.Movie;
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.network.ApiHandler;
+import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +25,11 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieVie
     private final MovieAdapterOnClickListener mClickListener;
 
     public MovieRvAdapter(ArrayList<Movie> movies, Context context) {
-        mMovies = movies;
+        if(movies==null)
+            mMovies = new ArrayList<>();
+        else
+            mMovies = movies;
+
         mTotalItems = mMovies.size();
         mClickListener = (MovieAdapterOnClickListener) context;
     }
@@ -43,7 +47,7 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieVie
         Movie movie = mMovies.get(position);
         holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
 
-        String imageUrl = ApiHandler.UrlAddressBook
+        String imageUrl = ApiClient.UrlAddressBook
                 .queryImageAddress()
                 .imageSize(MdbImage.W185)
                 .fileName(movie.getPosterPath())
