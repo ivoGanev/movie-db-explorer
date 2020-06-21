@@ -1,7 +1,7 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.uri.MdbImage;

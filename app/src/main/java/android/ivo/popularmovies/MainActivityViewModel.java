@@ -1,7 +1,7 @@
 package android.ivo.popularmovies;
 
 import android.ivo.popularmovies.network.ApiClient;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 
 import androidx.lifecycle.LiveData;
@@ -27,12 +27,6 @@ public class MainActivityViewModel extends ViewModel {
 
     public void updateMovies(@MdbDiscover.OrderType final String orderType)
     {
-        mAppExecutors.getNetworkExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Movie> movies = mApiClient.getMovies(orderType);
-                mMovies.postValue(movies);
-            }
-        });
+        mApiClient.postMovies(orderType, mMovies);
     }
 }

@@ -5,7 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 

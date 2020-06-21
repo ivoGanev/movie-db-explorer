@@ -1,12 +1,12 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.fragments.BundledFragmentFactory;
+import android.ivo.popularmovies.activities.fragments.BundledFragmentFactory;
 import android.ivo.popularmovies.R;
 
-import android.ivo.popularmovies.fragments.InfoFragment;
-import android.ivo.popularmovies.fragments.TrailerFragment;
-import android.ivo.popularmovies.fragments.UserReviewsFragment;
+import android.ivo.popularmovies.activities.fragments.InfoFragment;
+import android.ivo.popularmovies.activities.fragments.TrailerFragment;
+import android.ivo.popularmovies.activities.fragments.UserReviewsFragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

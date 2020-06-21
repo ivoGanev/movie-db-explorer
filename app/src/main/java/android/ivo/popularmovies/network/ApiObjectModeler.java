@@ -1,5 +1,5 @@
 package android.ivo.popularmovies.network;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

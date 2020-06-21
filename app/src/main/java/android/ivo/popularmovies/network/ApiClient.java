@@ -1,9 +1,12 @@
 package android.ivo.popularmovies.network;
 
+import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.BuildConfig;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.ivo.popularmovies.network.uri.MdbImage;
+
+import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +18,17 @@ import java.net.URL;
 import java.util.List;
 
 public class ApiClient {
+
+    private AppExecutors mAppExecutors;
+
+    public ApiClient() {
+        mAppExecutors = AppExecutors.getInstance();
+    }
+
+    public static ApiClient getInstance() {
+        return Holder.INSTANCE;
+    }
+
     // needs to be asynchronous
     private String fetchJsonData(String urlAddress) {
         URL url = null;
@@ -64,15 +78,24 @@ public class ApiClient {
         return jsonResult.toString();
     }
 
-    public List<Movie> getMovies(@MdbDiscover.OrderType String orderType) {
-        String urlAddress = UrlAddressBook
-                .queryMovieAddress()
-                .orderBy(orderType)
-                .get();
+    public void postMovies(final @MdbDiscover.OrderType String orderType, final MutableLiveData<List<Movie>> movies) {
+        mAppExecutors.getNetworkExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                String urlAddress = UrlAddressBook
+                        .queryMovieAddress()
+                        .orderBy(orderType)
+                        .get();
 
-        String json = fetchJsonData(urlAddress);
-        ApiObjectModeler modeler = new ApiObjectModeler();
-        return modeler.toMovieList(json);
+                String json = fetchJsonData(urlAddress);
+                ApiObjectModeler modeler = new ApiObjectModeler();
+                movies.postValue(modeler.toMovieList(json));
+            }
+        });
+    }
+
+    private static class Holder {
+        private static final ApiClient INSTANCE = new ApiClient();
     }
 
     public static class UrlAddressBook {

@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.MainActivityViewModel;
 import android.ivo.popularmovies.MainActivityViewModelFactory;
-import android.ivo.popularmovies.network.apimodels.Movie;
+import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
