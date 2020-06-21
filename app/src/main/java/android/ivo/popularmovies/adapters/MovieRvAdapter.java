@@ -4,6 +4,7 @@ import android.content.Context;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.network.ApiClient;
+import android.ivo.popularmovies.network.models.MovieInfo;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieVie
     private final MovieAdapterOnClickListener mClickListener;
 
     public MovieRvAdapter(ArrayList<Movie> movies, Context context) {
-        if(movies==null)
+        if(movies ==null)
             mMovies = new ArrayList<>();
         else
             mMovies = movies;
@@ -44,13 +45,13 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieVie
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movie movie = mMovies.get(position);
-        holder.mMovieTitle.setText(movie.getTitle() == null ? "No Movie Title" : movie.getTitle());
+        MovieInfo movieInfo = mMovies.get(position).getMovieInfo();
+        holder.mMovieTitle.setText(movieInfo.getTitle() == null ? "No Movie Title" : movieInfo.getTitle());
 
         String imageUrl = ApiClient.UrlAddressBook
                 .queryImageAddress()
                 .imageSize(MdbImage.W185)
-                .fileName(movie.getPosterPath())
+                .fileName(movieInfo.getPosterPath())
                 .get();
 
         Picasso.get().load(imageUrl).into(holder.mMoviePoster);

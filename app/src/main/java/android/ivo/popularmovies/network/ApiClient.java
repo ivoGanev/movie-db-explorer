@@ -89,7 +89,8 @@ public class ApiClient {
 
                 String json = fetchJsonData(urlAddress);
                 ApiObjectModeler modeler = new ApiObjectModeler();
-                movies.postValue(modeler.toMovieList(json));
+                List<Movie> movieList = modeler.modelMovieList(json);
+                movies.postValue(movieList);
             }
         });
     }

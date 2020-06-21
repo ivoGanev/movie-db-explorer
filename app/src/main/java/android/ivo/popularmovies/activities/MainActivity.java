@@ -16,7 +16,6 @@ import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityMainBinding;
-import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private RecyclerView mRecyclerView;
     private MovieRvAdapter mMovieRvAdapter;
-    private ApiClient mApiClient;
     private MainActivityViewModel mViewModel;
 
     @Override
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements
                 new GridLayoutManager(this, GRID_SPANS, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieRvAdapter);
-        mApiClient = new ApiClient();
 
         MainActivityViewModelFactory factory = new MainActivityViewModelFactory();
         mViewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);

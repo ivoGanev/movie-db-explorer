@@ -12,6 +12,7 @@ import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,7 @@ public class DetailsActivity extends AppCompatActivity {
         String imageUrl = ApiClient.UrlAddressBook
                 .queryImageAddress()
                 .imageSize(MdbImage.W342)
-                .fileName(movie.getPosterPath())
+                .fileName(movie.getMovieInfo().getPosterPath())
                 .get();
 
         Picasso.get().load(imageUrl).into(mBinding.imgMovieDetail);
