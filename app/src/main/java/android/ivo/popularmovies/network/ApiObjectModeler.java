@@ -3,6 +3,7 @@ package android.ivo.popularmovies.network;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.models.MovieInfo;
 import android.ivo.popularmovies.network.models.Review;
+import android.ivo.popularmovies.network.models.Trailer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,5 +71,25 @@ class ApiObjectModeler {
             e.printStackTrace();
         }
         return reviews;
+    }
+
+    public List<Trailer> modelTrailerList(String trailerUrl) {
+        List<Trailer> trailers = new ArrayList<>();
+
+        JSONObject trailerJson;
+        try {
+            trailerJson = new JSONObject(trailerUrl);
+            JSONArray array = trailerJson.getJSONArray("results");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject element = array.getJSONObject(i);
+                String youtubeKey = element.getString("key");
+                String site = element.getString("site");
+                String name = element.getString("name");
+                trailers.add(new Trailer(youtubeKey, site, name));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return trailers;
     }
 }

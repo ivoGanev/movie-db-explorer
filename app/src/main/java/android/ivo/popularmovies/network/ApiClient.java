@@ -5,10 +5,11 @@ import android.ivo.popularmovies.BuildConfig;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.models.MovieInfo;
 import android.ivo.popularmovies.network.models.Review;
+import android.ivo.popularmovies.network.models.Trailer;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.ivo.popularmovies.network.uri.MdbReview;
-import android.util.Log;
+import android.ivo.popularmovies.network.uri.MdbTrailer;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -20,12 +21,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
 
@@ -128,10 +127,7 @@ public class ApiClient {
     }
 
     public void postReview(@NonNull final MutableLiveData<Movie> movie) {
-        MovieInfo movieInfo = movie.getValue().getMovieInfo();
-        if (movieInfo == null)
-            throw new NullPointerException("Trying to get movie information but none can be found.");
-
+        MovieInfo movieInfo = getValidMovieInfo(movie);
         String urlAddress = UrlAddressBook.queryMovieReviews(Integer.toString(movieInfo.getId())).get();
 
         final Future<String> future = fetchJsonDataAsync(urlAddress);
@@ -155,6 +151,38 @@ public class ApiClient {
         });
     }
 
+    public void postTrailer(@NonNull final MutableLiveData<Movie> movie) {
+        MovieInfo movieInfo = getValidMovieInfo(movie);
+        String urlAddress = UrlAddressBook.queryMovieTrailer(Integer.toString(movieInfo.getId())).get();
+
+        final Future<String> future = fetchJsonDataAsync(urlAddress);
+        mAppExecutors.getNetworkExecutor().execute(new Runnable() {
+            List<Trailer> trailers;
+            @Override
+            public void run() {
+                try {
+                    ApiObjectModeler modeler = new ApiObjectModeler();
+                    String jsonObject = future.get();
+                    trailers = modeler.modelTrailerList(jsonObject);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    movie.getValue().getTrailers().addAll(trailers);
+                    movie.postValue(movie.getValue());
+                }
+            }
+        });
+    }
+
+    private MovieInfo getValidMovieInfo(@NonNull MutableLiveData<Movie> movie) {
+        MovieInfo movieInfo = movie.getValue().getMovieInfo();
+        if (movieInfo == null)
+            throw new NullPointerException("Trying to get movie information but none can be found.");
+        return movieInfo;
+    }
+
     private static class Holder {
         private static final ApiClient INSTANCE = new ApiClient();
     }
@@ -171,6 +199,8 @@ public class ApiClient {
         }
 
         public static MdbReview queryMovieReviews(String movieId) { return new MdbReview(API_KEY, movieId); }
+
+        public static MdbTrailer queryMovieTrailer(String movieId) { return new MdbTrailer(API_KEY, movieId); }
     }
 
     private static class SynchronizedString {

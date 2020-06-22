@@ -4,12 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Trailer implements Parcelable {
-    public Trailer()
-    {
+    private String mTrailerKey;
+    private String mSite;
+    private String mName;
 
+    public Trailer(String trailerKey, String site, String name) {
+        mTrailerKey = trailerKey;
+        mSite = site;
+        mName = name;
     }
 
     private Trailer(Parcel in) {
+        mTrailerKey = in.readString();
+        mSite = in.readString();
+        mName = in.readString();
     }
 
     public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
@@ -31,5 +39,16 @@ public class Trailer implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTrailerKey);
+        dest.writeString(mSite);
+        dest.writeString(mName);
+    }
+
+    public String getTrailerKey() {
+        return mTrailerKey;
+    }
+
+    public String getSite() {
+        return mSite;
     }
 }

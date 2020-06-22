@@ -46,18 +46,15 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onChanged(Movie movie) {
                 viewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), context, bundle));
+                Log.d("TAG", "onChanged: " + mViewModel.getMovie().getValue().getTrailers().size());
             }
         });
         mViewModel.loadReviews();
-
+        mViewModel.loadTrailers();
         mBinding.tlMovieDetails.setupWithViewPager(viewPager);
 
-        String imageUrl = ApiClient.UrlAddressBook
-                .queryImageAddress()
-                .imageSize(MdbImage.W342)
-                .fileName(movie.getMovieInfo().getPosterPath())
-                .get();
-
-        Picasso.get().load(imageUrl).into(mBinding.imgMovieDetail);
+        mViewModel.loadPosterImage(mBinding.imgMovieDetail);
     }
+
+
 }

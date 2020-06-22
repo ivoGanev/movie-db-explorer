@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Movie implements Parcelable {
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -21,21 +20,24 @@ public class Movie implements Parcelable {
     };
     private final MovieInfo mMovieInfo;
     private final ArrayList<Review> mReviews;
-    private final Trailer mTrailer;
+    private final ArrayList<Trailer> mTrailers;
 
     public Movie(final MovieInfo movieInfo) {
         mMovieInfo = movieInfo;
         mReviews = new ArrayList<>();
-        mTrailer = new Trailer();
+        mTrailers =  new ArrayList<>();
     }
 
     protected Movie(Parcel in) {
         Review[] reviews = new Review[]{};
+        Trailer[] trailers = new Trailer[]{};
+
         mMovieInfo = in.readParcelable(MovieInfo.class.getClassLoader());
         in.readTypedArray(reviews, Review.CREATOR);
-        mTrailer = in.readParcelable(Trailer.class.getClassLoader());
+        in.readTypedArray(trailers, Trailer.CREATOR);
 
         mReviews = new ArrayList<>(Arrays.asList(reviews)) ;
+        mTrailers = new ArrayList<>(Arrays.asList(trailers));
     }
 
     public MovieInfo getMovieInfo() {
@@ -46,8 +48,8 @@ public class Movie implements Parcelable {
         return mReviews;
     }
 
-    public Trailer getTrailer() {
-        return mTrailer;
+    public ArrayList<Trailer> getTrailers() {
+        return mTrailers;
     }
 
     @Override
@@ -58,8 +60,9 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         Parcelable[] reviews = mReviews.toArray(new Parcelable[0]);
+        Parcelable[] trailers = mTrailers.toArray(new Parcelable[0]);
         dest.writeParcelable(mMovieInfo, 0);
         dest.writeTypedArray(reviews, 0);
-        dest.writeParcelable(mTrailer, 0);
+        dest.writeTypedArray(trailers, 0);
     }
 }
