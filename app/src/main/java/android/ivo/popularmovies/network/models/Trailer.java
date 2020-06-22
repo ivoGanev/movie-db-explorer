@@ -4,6 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Trailer implements Parcelable {
+    public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
+        @Override
+        public Trailer createFromParcel(Parcel in) {
+            return new Trailer(in);
+        }
+
+        @Override
+        public Trailer[] newArray(int size) {
+            return new Trailer[size];
+        }
+    };
     private String mTrailerKey;
     private String mSite;
     private String mName;
@@ -20,17 +31,9 @@ public class Trailer implements Parcelable {
         mName = in.readString();
     }
 
-    public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
-        @Override
-        public Trailer createFromParcel(Parcel in) {
-            return new Trailer(in);
-        }
-
-        @Override
-        public Trailer[] newArray(int size) {
-            return new Trailer[size];
-        }
-    };
+    public String getName() {
+        return mName;
+    }
 
     @Override
     public int describeContents() {
