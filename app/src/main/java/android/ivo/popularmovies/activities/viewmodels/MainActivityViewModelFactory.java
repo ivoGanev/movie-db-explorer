@@ -1,13 +1,10 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.activities.viewmodels;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivityViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-    public MainActivityViewModelFactory() {
-    }
-
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

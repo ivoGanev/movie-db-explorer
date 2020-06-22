@@ -3,6 +3,10 @@ package android.ivo.popularmovies.network.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Movie implements Parcelable {
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
@@ -16,33 +20,30 @@ public class Movie implements Parcelable {
         }
     };
     private final MovieInfo mMovieInfo;
-    private final Review mReview;
+    private final ArrayList<Review> mReviews;
     private final Trailer mTrailer;
 
     public Movie(final MovieInfo movieInfo) {
         mMovieInfo = movieInfo;
-        mReview = null;
-        mTrailer = null;
-    }
-
-    public Movie(MovieInfo movieInfo, Review review, Trailer trailer) {
-        mMovieInfo = movieInfo;
-        mReview = review;
-        mTrailer = trailer;
+        mReviews = new ArrayList<>();
+        mTrailer = new Trailer();
     }
 
     protected Movie(Parcel in) {
+        Review[] reviews = new Review[]{};
         mMovieInfo = in.readParcelable(MovieInfo.class.getClassLoader());
-        mReview = in.readParcelable(Review.class.getClassLoader());
+        in.readTypedArray(reviews, Review.CREATOR);
         mTrailer = in.readParcelable(Trailer.class.getClassLoader());
+
+        mReviews = new ArrayList<>(Arrays.asList(reviews)) ;
     }
 
     public MovieInfo getMovieInfo() {
         return mMovieInfo;
     }
 
-    public Review getReview() {
-        return mReview;
+    public ArrayList<Review> getReview() {
+        return mReviews;
     }
 
     public Trailer getTrailer() {
@@ -56,8 +57,9 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        Parcelable[] reviews = mReviews.toArray(new Parcelable[0]);
         dest.writeParcelable(mMovieInfo, 0);
-        dest.writeParcelable(mReview, 1);
-        dest.writeParcelable(mTrailer, 2);
+        dest.writeTypedArray(reviews, 0);
+        dest.writeParcelable(mTrailer, 0);
     }
 }

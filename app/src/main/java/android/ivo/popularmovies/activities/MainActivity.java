@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
-import android.ivo.popularmovies.MainActivityViewModel;
-import android.ivo.popularmovies.MainActivityViewModelFactory;
+import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModel;
+import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModelFactory;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;

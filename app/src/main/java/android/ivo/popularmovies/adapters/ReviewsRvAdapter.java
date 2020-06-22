@@ -22,9 +22,8 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_reviews_rv_item, parent);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_reviews_rv_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override

@@ -1,5 +1,6 @@
-package android.ivo.popularmovies;
+package android.ivo.popularmovies.activities.viewmodels;
 
+import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbDiscover;

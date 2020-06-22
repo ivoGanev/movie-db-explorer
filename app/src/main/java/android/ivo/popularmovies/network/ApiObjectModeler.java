@@ -1,6 +1,8 @@
 package android.ivo.popularmovies.network;
+
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.models.MovieInfo;
+import android.ivo.popularmovies.network.models.Review;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +33,13 @@ class ApiObjectModeler {
         return movieInfo;
     }
 
-    List<Movie> modelMovieList(String moviesAddress) {
+    List<Movie> modelMovieList(String movieUrl) {
         List<Movie> result = new ArrayList<>();
 
-        JSONObject movieObject;
+        JSONObject movieJson;
         try {
-            movieObject = new JSONObject(moviesAddress);
-            JSONArray array = movieObject.getJSONArray("results");
+            movieJson = new JSONObject(movieUrl);
+            JSONArray array = movieJson.getJSONArray("results");
             for (int i = 0; i < array.length(); i++) {
                 MovieInfo movieInfo = modelMovieInfo(array.getJSONObject(i));
                 Movie movie = new Movie(movieInfo);
@@ -49,5 +51,24 @@ class ApiObjectModeler {
         }
 
         return result;
+    }
+
+    List<Review> modelReviewList(String reviewUrl) {
+        List<Review> reviews = new ArrayList<>();
+
+        JSONObject reviewJson;
+        try {
+            reviewJson = new JSONObject(reviewUrl);
+            JSONArray array = reviewJson.getJSONArray("results");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject element = array.getJSONObject(i);
+                String author = element.getString("author");
+                String content = element.getString("content");
+                reviews.add(new Review(author, content));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reviews;
     }
 }

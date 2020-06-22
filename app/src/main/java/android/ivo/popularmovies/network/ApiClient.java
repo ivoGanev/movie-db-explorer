@@ -3,9 +3,14 @@ package android.ivo.popularmovies.network;
 import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.BuildConfig;
 import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.network.models.MovieInfo;
+import android.ivo.popularmovies.network.models.Review;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.ivo.popularmovies.network.uri.MdbImage;
+import android.ivo.popularmovies.network.uri.MdbReview;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
@@ -15,11 +20,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
 
     private AppExecutors mAppExecutors;
+    private SynchronizedString mApiCall = new SynchronizedString();
 
     public ApiClient() {
         mAppExecutors = AppExecutors.getInstance();
@@ -78,19 +89,68 @@ public class ApiClient {
         return jsonResult.toString();
     }
 
+    private Future<String> fetchJsonDataAsync(final String urlAddress) {
+        Callable<String> callable = new Callable<String>() {
+            @Override
+            public String call() {
+                return fetchJsonData(urlAddress);
+            }
+        };
+
+        return mAppExecutors.getNetworkExecutor().submit(callable);
+    }
+
     public void postMovies(final @MdbDiscover.OrderType String orderType, final MutableLiveData<List<Movie>> movies) {
+        String urlAddress = UrlAddressBook
+                .queryMovieAddress()
+                .orderBy(orderType)
+                .get();
+
+        final Future<String> future = fetchJsonDataAsync(urlAddress);
+
         mAppExecutors.getNetworkExecutor().execute(new Runnable() {
+            List<Movie> movieList;
+
             @Override
             public void run() {
-                String urlAddress = UrlAddressBook
-                        .queryMovieAddress()
-                        .orderBy(orderType)
-                        .get();
+                try {
+                    ApiObjectModeler modeler = new ApiObjectModeler();
+                    movieList = modeler.modelMovieList(future.get());
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    movies.postValue(movieList);
+                }
+            }
+        });
+    }
 
-                String json = fetchJsonData(urlAddress);
-                ApiObjectModeler modeler = new ApiObjectModeler();
-                List<Movie> movieList = modeler.modelMovieList(json);
-                movies.postValue(movieList);
+    public void postReview(@NonNull final MutableLiveData<Movie> movie) {
+        MovieInfo movieInfo = movie.getValue().getMovieInfo();
+        if (movieInfo == null)
+            throw new NullPointerException("Trying to get movie information but none can be found.");
+
+        String urlAddress = UrlAddressBook.queryMovieReviews(Integer.toString(movieInfo.getId())).get();
+
+        final Future<String> future = fetchJsonDataAsync(urlAddress);
+        mAppExecutors.getNetworkExecutor().execute(new Runnable() {
+            List<Review> reviews;
+            @Override
+            public void run() {
+                try {
+                    ApiObjectModeler modeler = new ApiObjectModeler();
+                    String jsonObject = future.get();
+                    reviews = modeler.modelReviewList(jsonObject);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    movie.getValue().getReview().addAll(reviews);
+                    movie.postValue(movie.getValue());
+                }
             }
         });
     }
@@ -109,5 +169,21 @@ public class ApiClient {
         public static MdbDiscover queryMovieAddress() {
             return new MdbDiscover(API_KEY);
         }
+
+        public static MdbReview queryMovieReviews(String movieId) { return new MdbReview(API_KEY, movieId); }
     }
+
+    private static class SynchronizedString {
+        private String mString;
+
+        public synchronized String setString(String string) {
+            mString = string;
+            return mString;
+        }
+
+        public synchronized String getString() {
+            return mString;
+        }
+    }
+
 }

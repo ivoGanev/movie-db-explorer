@@ -4,18 +4,19 @@ import android.os.Handler;
 import android.os.Looper;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AppExecutors {
-    private final Executor mDiskIOExecutor;
-    private final Executor mNetworkExecutor;
+    private final ExecutorService mDiskIOExecutor;
+    private final ExecutorService mNetworkExecutor;
     private final Executor mMainThread;
 
-    public Executor getDiskIOExecutor() {
+    public ExecutorService getDiskIOExecutor() {
         return mDiskIOExecutor;
     }
 
-    public Executor getNetworkExecutor() {
+    public ExecutorService getNetworkExecutor() {
         return mNetworkExecutor;
     }
 
