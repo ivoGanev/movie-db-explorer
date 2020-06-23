@@ -1,6 +1,5 @@
 package android.ivo.popularmovies.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,12 +15,7 @@ import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
-import android.ivo.popularmovies.network.ApiClient;
-import android.ivo.popularmovies.network.uri.MdbImage;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,35 +46,33 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onChanged(Movie movie) {
                 viewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), context, bundle));
+                Picasso.get().load(mViewModel.getPosterImageUrl()).into(mBinding.imgMovieDetail);
             }
         });
 
-        mViewModel.getInDatabase().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean==true) {
-                    Toast.makeText(getApplication().getApplicationContext(),
-                            mViewModel.getMovie().getValue().getMovieInfo().getTitle() + " added to favourites",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplication().getApplicationContext(),
-                            mViewModel.getMovie().getValue().getMovieInfo().getTitle() + " removed from favourites",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         mViewModel.loadReviews();
         mViewModel.loadTrailers();
 
         mBinding.tlMovieDetails.setupWithViewPager(viewPager);
         mBinding.btnFavMovieDetails.setOnClickListener(this);
-
-        mViewModel.loadPosterImage(mBinding.imgMovieDetail);
     }
 
     @Override
     public void onClick(View v) {
-        mViewModel.favourite((FloatingActionButton) v);
+        Boolean favouriteSet = mViewModel.setCurrentMovieAsFavourite();
+        FloatingActionButton button = (FloatingActionButton) v;
+        if (favouriteSet) {
+            button.setImageResource(R.drawable.ic_baseline_favorite_24);
+            toastShowFavouriteStatus("added to favourites");
+        } else {
+            button.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+            toastShowFavouriteStatus("removed from favourites");
+        }
+    }
+
+    private void toastShowFavouriteStatus(String status) {
+        Toast.makeText(getApplication().getApplicationContext(),
+                mViewModel.getMovie().getValue().getMovieInfo().getTitle() + " " + status,
+                Toast.LENGTH_SHORT).show();
     }
 }

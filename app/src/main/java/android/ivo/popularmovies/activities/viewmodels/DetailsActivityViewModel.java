@@ -45,23 +45,22 @@ public class DetailsActivityViewModel extends ViewModel {
         return mInDatabase;
     }
 
-    public void loadPosterImage(ImageView imageView) {
-        String imageUrl = ApiClient.UrlAddressBook
+    public String getPosterImageUrl() {
+        return ApiClient.UrlAddressBook
                 .queryImageAddress()
                 .imageSize(MdbImage.W342)
                 .fileName(mMovie.getValue().getMovieInfo().getPosterPath())
                 .get();
-
-        Picasso.get().load(imageUrl).into(imageView);
     }
 
-    public void favourite(FloatingActionButton button) {
+    public Boolean setCurrentMovieAsFavourite() {
+        // tackle with the database
         if (mInDatabase.getValue() == false) {
-            button.setImageResource(R.drawable.ic_baseline_favorite_24);
             mInDatabase.setValue(true);
         } else {
-            button.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+
             mInDatabase.setValue(false);
         }
+        return mInDatabase.getValue();
     }
 }
