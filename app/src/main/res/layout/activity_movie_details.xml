@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,23 +7,52 @@
     android:orientation="vertical"
     tools:context=".activities.DetailsActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_fav_movie_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
     <ImageView
         android:id="@+id/img_movie_detail"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/img_movie_height"
+        android:layout_width="409dp"
+        android:layout_height="157dp"
+        android:contentDescription="@string/cd_movie_poster"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground"
-        android:contentDescription="@string/cd_movie_poster" />
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:background="@color/colorAccent"
         android:id="@+id/tl_movie_details"
-        android:layout_height="50dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="@+id/img_movie_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/img_movie_detail"
+        app:layout_constraintTop_toBottomOf="@+id/img_movie_detail" />
 
     <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
         android:id="@+id/vp_movie_details"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_fav_movie_details"
+        app:layout_constraintEnd_toEndOf="@+id/tl_movie_details"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tl_movie_details"
+        app:layout_constraintTop_toBottomOf="@+id/tl_movie_details"
+        app:layout_constraintVertical_bias="0.0">
 
-</LinearLayout>
+    </androidx.viewpager.widget.ViewPager>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

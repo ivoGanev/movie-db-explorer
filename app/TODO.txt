@@ -1,3 +1,2 @@
 TODO: Replace all the layouts with ConstraintLayout where possible
-TODO: Rename the composite components as RequestResult or Query or JsonResponse
-TODO: The Composite should really be injected not inherited
+TODO: Implement ROOM Database access to store favourite movies

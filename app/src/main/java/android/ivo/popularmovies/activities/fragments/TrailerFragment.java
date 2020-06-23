@@ -18,7 +18,7 @@ public class TrailerFragment extends MovieBundledFragment {
     void onBundleLoad(Movie movie) {
         FragmentMovieTrailerBinding binding = (FragmentMovieTrailerBinding) getInflatedViewBinding();
         TrailerRvAdapter trailerRvAdapter = new TrailerRvAdapter(movie.getTrailers());
-        binding.movieTrailerRv.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
+        binding.movieTrailerRv.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         binding.movieTrailerRv.setAdapter(trailerRvAdapter);
     }
 
