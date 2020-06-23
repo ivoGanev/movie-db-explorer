@@ -3,6 +3,11 @@ package android.ivo.popularmovies.network.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "movies")
 public class MovieInfo implements Parcelable {
     public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
         @Override
@@ -21,8 +26,11 @@ public class MovieInfo implements Parcelable {
     private final String mPlotSynopsis;
     private final String mPosterPath;
     private final double mVoteAverage;
+
+    @PrimaryKey(autoGenerate = false)
     private final int mId;
 
+    @Ignore
     private MovieInfo(Parcel in) {
         mTitle = in.readString();
         mReleaseDate = in.readString();
@@ -32,6 +40,7 @@ public class MovieInfo implements Parcelable {
         mId = in.readInt();
     }
 
+    @Ignore
     private MovieInfo(Builder builder) {
         mTitle = builder.mTitle;
         mReleaseDate = builder.mReleaseDate;
@@ -39,6 +48,18 @@ public class MovieInfo implements Parcelable {
         mPosterPath = builder.mPosterPath;
         mVoteAverage = builder.mVoteAverage;
         mId = builder.mId;
+    }
+
+    /**
+     * Used by Room only
+     * */
+    public MovieInfo(String title, String releaseDate, String plotSynopsis, String posterPath, double voteAverage, int id) {
+        mTitle = title;
+        mReleaseDate = releaseDate;
+        mPlotSynopsis = plotSynopsis;
+        mPosterPath = posterPath;
+        mVoteAverage = voteAverage;
+        mId = id;
     }
 
     @Override
@@ -72,8 +93,8 @@ public class MovieInfo implements Parcelable {
         return mPosterPath;
     }
 
-    public String getVoteAverage() {
-        return Double.toString(mVoteAverage);
+    public Double getVoteAverage() {
+        return mVoteAverage;
     }
 
     public int getId() { return mId; }

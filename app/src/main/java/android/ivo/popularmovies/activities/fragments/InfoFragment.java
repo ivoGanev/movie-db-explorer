@@ -28,11 +28,11 @@ public class InfoFragment extends MovieBundledFragment {
 
         binding.tvDetailsTitle.setText(movieInfo.getTitle());
         binding.tvPlotSynopsis.setText(movieInfo.getPlotSynopsis());
-        binding.tvRating.setText(movieInfo.getVoteAverage());
+        binding.tvRating.setText(Double.toString(movieInfo.getVoteAverage()));
         binding.tvReleaseDate.setText(movieInfo.getReleaseDate());
 
         GradientDrawable ratingCircle = (GradientDrawable) binding.tvRating.getBackground();
-        int color = getRatingColor(Double.parseDouble(movieInfo.getVoteAverage()));
+        int color = getRatingColor(movieInfo.getVoteAverage());
         ratingCircle.setColor(color);
     }
 

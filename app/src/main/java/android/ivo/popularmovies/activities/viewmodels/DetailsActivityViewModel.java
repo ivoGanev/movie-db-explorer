@@ -1,31 +1,26 @@
 package android.ivo.popularmovies.activities.viewmodels;
 
 import android.app.Application;
-import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
+import android.ivo.popularmovies.database.AppDatabase;
 import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.network.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbImage;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
-public class DetailsActivityViewModel extends ViewModel {
+public class DetailsActivityViewModel extends AndroidViewModel {
     private final MutableLiveData<Movie> mMovie;
     private final ApiClient mApiClient;
+    private final AppDatabase mAppDatabase;
+
     private final MutableLiveData<Boolean> mInDatabase;
 
-    public DetailsActivityViewModel(Movie movie) {
+    public DetailsActivityViewModel(Movie movie, Application application) {
+        super(application);
+        mAppDatabase = AppDatabase.getInstance(application.getApplicationContext());
         mMovie = new MutableLiveData<>(movie);
-        mInDatabase = new MutableLiveData<>();
-        mInDatabase.setValue(false);
+        mInDatabase = new MutableLiveData<>(false);
         mApiClient = ApiClient.getInstance();
     }
 
@@ -54,13 +49,19 @@ public class DetailsActivityViewModel extends ViewModel {
     }
 
     public Boolean setCurrentMovieAsFavourite() {
-        // tackle with the database
-        if (mInDatabase.getValue() == false) {
-            mInDatabase.setValue(true);
+        if (movieInfoIsInDatabase()) {
+            mInDatabase.setValue(false);
+            mAppDatabase.dao().deleteMovieInfo(mMovie.getValue().getMovieInfo());
+
         } else {
 
-            mInDatabase.setValue(false);
+            mInDatabase.setValue(true);
+            mAppDatabase.dao().insertMovieInfo(mMovie.getValue().getMovieInfo());
         }
         return mInDatabase.getValue();
+    }
+
+    public Boolean movieInfoIsInDatabase() {
+        return mAppDatabase.dao().getMovieInfo(mMovie.getValue().getMovieInfo().getId()) != null;
     }
 }
