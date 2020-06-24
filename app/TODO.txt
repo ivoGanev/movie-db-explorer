@@ -1,2 +1,5 @@
-TODO: Replace all the layouts with ConstraintLayout where possible
-TODO: Implement ROOM Database access to store favourite movies
+TODO: Put a menu button for favourites in main activity
+TODO: Make a layout file to display the items in the database
+TODO: Make an adapter for the list of movie information that will be displayed
+TODO: Create a button in trailer fragment element for sharing
+TODO: Polish the app

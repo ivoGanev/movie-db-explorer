@@ -11,5 +11,6 @@
     <string name="tab_trailer">Trailer</string>
     <string name="tab_reviews">User Reviews</string>
     <string name="tab_information">Information</string>
+    <string name="main_menu_fav">favorites</string>
 
 </resources>

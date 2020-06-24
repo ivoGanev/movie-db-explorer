@@ -65,8 +65,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         Boolean favouriteSet = mViewModel.setCurrentMovieAsFavourite();
-        String message = (favouriteSet) ? "added to favourites" : "removed from favourites";
-
+        String message = (favouriteSet)
+                ? "added to favourites"
+                : "removed from favourites";
         toastShowFavouriteStatus(message);
         setAddFavouriteButtonImage(favouriteSet);
     }

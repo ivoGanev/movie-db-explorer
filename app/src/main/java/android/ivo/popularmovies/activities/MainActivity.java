@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnClick(int position) {
-        Intent movieDetails = new Intent(this, DetailsActivity.class);
+        Intent i = new Intent(this, DetailsActivity.class);
         Movie movie = mViewModel.getMovies().getValue().get(position);
 
-        movieDetails.putExtra(BundleKeys.MOVIE_BUNDLE_KEY, movie);
-        startActivity(movieDetails);
+        i.putExtra(BundleKeys.MOVIE_BUNDLE_KEY, movie);
+        startActivity(i);
     }
 
     @Override
@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements
             mViewModel.updateMovies(MdbDiscover.NOW_PLAYING);
         } else if (item.getItemId() == R.id.menu_sort_upcoming) {
             mViewModel.updateMovies(MdbDiscover.UPCOMING);
+        } else if (item.getItemId() == R.id.main_menu_fav) {
+            Intent i = new Intent(this, FavoritesActivity.class);
+            startActivity(i);
         }
         return true;
     }
