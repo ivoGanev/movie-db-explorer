@@ -1,6 +1,6 @@
 package android.ivo.popularmovies.database;
 
-import android.ivo.popularmovies.network.models.MovieInfo;
+import android.ivo.popularmovies.models.MovieInfo;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

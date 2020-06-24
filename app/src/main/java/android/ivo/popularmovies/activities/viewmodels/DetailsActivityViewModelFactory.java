@@ -1,10 +1,9 @@
 package android.ivo.popularmovies.activities.viewmodels;
 
 import android.app.Application;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 

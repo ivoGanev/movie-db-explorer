@@ -1,12 +1,9 @@
 package android.ivo.popularmovies.activities.fragments;
 
 import android.ivo.popularmovies.adapters.ReviewsRvAdapter;
-import android.ivo.popularmovies.network.ApiClient;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.databinding.FragmentMovieReviewsBinding;
 
-import android.ivo.popularmovies.network.models.Review;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,9 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class UserReviewsFragment extends MovieBundledFragment {
 

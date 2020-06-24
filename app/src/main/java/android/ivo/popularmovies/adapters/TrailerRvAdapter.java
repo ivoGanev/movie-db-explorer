@@ -1,9 +1,8 @@
 package android.ivo.popularmovies.adapters;
 
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.databinding.FragmentMovieTrailerBinding;
 import android.ivo.popularmovies.databinding.FragmentTrailersRvItemBinding;
-import android.ivo.popularmovies.network.models.Trailer;
+import android.ivo.popularmovies.models.Trailer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

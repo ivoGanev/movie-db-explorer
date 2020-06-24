@@ -1,9 +1,9 @@
 package android.ivo.popularmovies.network;
 
-import android.ivo.popularmovies.network.models.Movie;
-import android.ivo.popularmovies.network.models.MovieInfo;
-import android.ivo.popularmovies.network.models.Review;
-import android.ivo.popularmovies.network.models.Trailer;
+import android.ivo.popularmovies.models.Movie;
+import android.ivo.popularmovies.models.MovieInfo;
+import android.ivo.popularmovies.models.Review;
+import android.ivo.popularmovies.models.Trailer;
 
 import org.json.JSONArray;
 import org.json.JSONException;

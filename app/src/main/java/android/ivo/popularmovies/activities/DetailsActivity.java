@@ -12,16 +12,14 @@ import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.activities.viewmodels.DetailsActivityViewModel;
 import android.ivo.popularmovies.activities.viewmodels.DetailsActivityViewModelFactory;
 import android.ivo.popularmovies.database.AppDatabase;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {

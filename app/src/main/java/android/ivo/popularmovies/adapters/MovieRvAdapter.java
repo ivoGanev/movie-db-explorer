@@ -1,10 +1,10 @@
 package android.ivo.popularmovies.adapters;
 
 import android.content.Context;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.network.ApiClient;
-import android.ivo.popularmovies.network.models.MovieInfo;
+import android.ivo.popularmovies.models.MovieInfo;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.view.LayoutInflater;
 import android.view.View;

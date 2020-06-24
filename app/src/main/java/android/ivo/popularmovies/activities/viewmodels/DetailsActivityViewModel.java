@@ -3,7 +3,7 @@ package android.ivo.popularmovies.activities.viewmodels;
 import android.app.Application;
 import android.ivo.popularmovies.database.AppDatabase;
 import android.ivo.popularmovies.network.ApiClient;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbImage;
 
 import androidx.lifecycle.AndroidViewModel;

@@ -1,6 +1,6 @@
 package android.ivo.popularmovies.database;
 import android.content.Context;
-import android.ivo.popularmovies.network.models.MovieInfo;
+import android.ivo.popularmovies.models.MovieInfo;
 
 import androidx.room.Database;
 import androidx.room.Room;

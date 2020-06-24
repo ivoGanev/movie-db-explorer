@@ -2,11 +2,11 @@ package android.ivo.popularmovies.activities.fragments;
 
 
 import android.ivo.popularmovies.adapters.TrailerRvAdapter;
-import android.ivo.popularmovies.network.models.Movie;
+import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.databinding.FragmentMovieTrailerBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.ivo.popularmovies.databinding.FragmentTrailersRvItemBinding;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;

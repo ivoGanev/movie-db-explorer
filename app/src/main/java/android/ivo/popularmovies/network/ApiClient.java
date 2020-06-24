@@ -2,10 +2,10 @@ package android.ivo.popularmovies.network;
 
 import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.BuildConfig;
-import android.ivo.popularmovies.network.models.Movie;
-import android.ivo.popularmovies.network.models.MovieInfo;
-import android.ivo.popularmovies.network.models.Review;
-import android.ivo.popularmovies.network.models.Trailer;
+import android.ivo.popularmovies.models.Movie;
+import android.ivo.popularmovies.models.MovieInfo;
+import android.ivo.popularmovies.models.Review;
+import android.ivo.popularmovies.models.Trailer;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 import android.ivo.popularmovies.network.uri.MdbImage;
 import android.ivo.popularmovies.network.uri.MdbReview;
