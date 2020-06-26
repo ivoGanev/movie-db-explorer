@@ -26,5 +26,4 @@ public interface AppDao {
 
     @Delete
     public void deleteMovieInfo(MovieInfo movieInfo);
-
 }

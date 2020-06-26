@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModel;
 import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModelFactory;
+import android.ivo.popularmovies.filesystem.FileSystem;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         mViewModel.updateMovies(MdbDiscover.POPULAR);
+
+        FileSystem fs = new FileSystem();
+        fs.listFiles(getFilesDir());
     }
 
     public void updateUI() {

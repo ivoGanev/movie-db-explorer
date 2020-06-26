@@ -7,6 +7,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.activities.viewmodels.DetailsActivityViewModel;
@@ -40,8 +42,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         final ViewPager viewPager = mBinding.vpMovieDetails;
         bundle.putParcelable(BundleKeys.MOVIE_BUNDLE_KEY, movie);
 
-        DetailsActivityViewModelFactory factory = new DetailsActivityViewModelFactory(movie, getApplication());
-        mViewModel = new ViewModelProvider(this, factory).get(DetailsActivityViewModel.class);
+        DetailsActivityViewModelFactory factory =
+                new DetailsActivityViewModelFactory(movie, getApplication());
+
+        mViewModel = new ViewModelProvider(this, factory)
+                .get(DetailsActivityViewModel.class);
+
         mViewModel.getMovie().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
@@ -57,20 +63,21 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         mBinding.btnFavMovieDetails.setOnClickListener(this);
 
         AppDatabase appDatabase = AppDatabase.getInstance(this);
-        setAddFavouriteButtonImage(mViewModel.movieInfoIsInDatabase());
+        setFavouriteButtonImage(mViewModel.movieInfoIsInDatabase());
     }
 
     @Override
     public void onClick(View v) {
-        Boolean favouriteSet = mViewModel.setCurrentMovieAsFavourite();
+        Bitmap posterImage = ((BitmapDrawable)mBinding.imgMovieDetail.getDrawable()).getBitmap();
+        Boolean favouriteSet = mViewModel.setCurrentMovieAsFavourite(posterImage);
         String message = (favouriteSet)
                 ? "added to favourites"
                 : "removed from favourites";
         toastShowFavouriteStatus(message);
-        setAddFavouriteButtonImage(favouriteSet);
+        setFavouriteButtonImage(favouriteSet);
     }
 
-    private void setAddFavouriteButtonImage(Boolean add) {
+    private void setFavouriteButtonImage(Boolean add) {
         int imageId = (add)
                 ? R.drawable.ic_baseline_favorite_24
                 : R.drawable.ic_baseline_favorite_border_24;
@@ -79,7 +86,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
     private void toastShowFavouriteStatus(String status) {
         Toast.makeText(getApplication().getApplicationContext(),
-                mViewModel.getMovie().getValue().getMovieInfo().getTitle() + " " + status,
+                mViewModel.getMovieInfo().getTitle() + " " + status,
                 Toast.LENGTH_SHORT).show();
     }
 }

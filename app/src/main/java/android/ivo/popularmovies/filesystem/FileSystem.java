@@ -3,6 +3,8 @@ package android.ivo.popularmovies.filesystem;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.nfc.Tag;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,10 +13,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FileSystem {
+    private static final String TAG = FileSystem.class.getSimpleName();
+
     public void saveBitmap(Bitmap bitmap, File directory, String fileName) {
         FileOutputStream outputStream = null;
         File file = new File(directory, fileName);
-
+        Log.d(TAG, "saving as: " + directory + fileName);
         try {
             outputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
@@ -28,9 +32,10 @@ public class FileSystem {
                 e.printStackTrace();
             }
         }
+        listFiles(directory);
     }
 
-    public Bitmap loadBitmap(String path, String fileName) {
+    public Bitmap loadBitmap(File path, String fileName) {
         Bitmap bitmap = null;
         FileInputStream inputStream = null;
 
@@ -52,9 +57,19 @@ public class FileSystem {
         return bitmap;
     }
 
-    public Boolean deleteFile(String absolutePath)
-    {
+    public Boolean deleteFile(String absolutePath) {
+        Log.d(TAG, "deleting at absolute path: " + absolutePath);
         File file = new File(absolutePath);
-        return file.delete();
+        Boolean success = file.delete();
+        Log.d(TAG, "deleted " + success);
+        return success;
+    }
+
+    public void listFiles(File directory) {
+        String[] fileList = directory.list();
+        Log.d(TAG, "listing files in directory -- " + directory.toString() + "\n");
+        for (String file : fileList) {
+            Log.d(TAG, file);
+        }
     }
 }

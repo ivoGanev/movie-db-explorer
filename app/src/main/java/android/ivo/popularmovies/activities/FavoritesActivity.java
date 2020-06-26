@@ -24,7 +24,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
         AppDatabase database = AppDatabase.getInstance(this);
         List<MovieInfo> infoList = database.dao().getMovieInfoList();
-        FavoritesRvAdapter adapter = new FavoritesRvAdapter(infoList);
+        FavoritesRvAdapter adapter = new FavoritesRvAdapter(this, infoList);
         RecyclerView recyclerView = binding.activityFavoritesRv;
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(adapter);

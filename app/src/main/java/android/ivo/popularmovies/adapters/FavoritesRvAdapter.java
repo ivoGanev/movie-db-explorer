@@ -1,7 +1,10 @@
 package android.ivo.popularmovies.adapters;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.databinding.ActivityFavoritesRvItemBinding;
+import android.ivo.popularmovies.filesystem.FileSystem;
 import android.ivo.popularmovies.models.MovieInfo;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.ViewHolder> {
+    private Context mContext;
     private List<MovieInfo> mInfoList;
 
-    public FavoritesRvAdapter(List<MovieInfo> infoList) {
+    public FavoritesRvAdapter(Context context, List<MovieInfo> infoList) {
+        mContext = context;
         mInfoList = infoList;
     }
 
@@ -34,7 +39,10 @@ public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.
         binding.favRvItemSynopsis.setText(info.getPlotSynopsis());
         binding.favRvItemDate.setText(info.getReleaseDate());
         binding.favRvItemTitle.setText(info.getTitle());
-       // binding.favRvItemImage.setImageBitmap(FileSystem.loadBitmap("path", "filename"));
+
+        FileSystem fileSystem = new FileSystem();
+        Bitmap bitmap = fileSystem.loadBitmap(mContext.getFilesDir(), Integer.toString(info.getId()));
+        binding.favRvItemImage.setImageBitmap(bitmap);
     }
 
     @Override
