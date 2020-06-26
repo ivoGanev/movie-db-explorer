@@ -87,7 +87,7 @@ public class DetailsActivityViewModel extends AndroidViewModel {
         if (movieInfoIsInDatabase()) {
             String absolutePath = getApplication().getFilesDir() + "/" + Integer.toString(mMovieInfo.getId());
             fileSystem.deleteFile(absolutePath);
-            fileSystem.listFiles(directory);
+           // fileSystem.listFiles(directory);
         } else {
             fileSystem.saveBitmap(bitmap, directory, Integer.toString(mMovieInfo.getId()));
         }

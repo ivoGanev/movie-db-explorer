@@ -1,6 +1,7 @@
 package android.ivo.popularmovies.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,8 +26,11 @@ public class FavoritesActivity extends AppCompatActivity {
         AppDatabase database = AppDatabase.getInstance(this);
         List<MovieInfo> infoList = database.dao().getMovieInfoList();
         FavoritesRvAdapter adapter = new FavoritesRvAdapter(this, infoList);
+
         RecyclerView recyclerView = binding.activityFavoritesRv;
+        DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(adapter);
     }
 }

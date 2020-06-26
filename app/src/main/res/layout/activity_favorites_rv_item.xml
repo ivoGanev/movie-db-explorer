@@ -2,19 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/padding_normal"
+    android:layout_marginBottom="@dimen/padding_normal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fav_rv_item_title"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="356dp"
+        android:layout_height="61dp"
         android:gravity="center_vertical"
-        android:maxLines="2"
-        android:padding="14dp"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
         android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
@@ -30,6 +34,9 @@
         android:id="@+id/fav_rv_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_title"
@@ -39,26 +46,41 @@
         android:id="@+id/fav_rv_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:paddingStart="14dp"
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
         android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_image"
+        app:layout_constraintStart_toEndOf="@+id/fav_rv_item_image"
+        app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_title"
         tools:text="24/16/2020" />
 
     <TextView
         android:id="@+id/fav_rv_item_synopsis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="248dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         android:paddingLeft="14dp"
         android:paddingTop="8dp"
         android:paddingRight="14dp"
         android:textSize="16sp"
         android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fav_rv_item_date"
         app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_date"
         tools:text="Synopsis" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_remove_24" />
+
+    <!--TODO: Introduce remove button to delete the current element -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@ public class FileSystem {
     public void saveBitmap(Bitmap bitmap, File directory, String fileName) {
         FileOutputStream outputStream = null;
         File file = new File(directory, fileName);
-        Log.d(TAG, "saving as: " + directory + fileName);
+        //  Log.d(TAG, "saving as: " + directory + fileName);
         try {
             outputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
@@ -58,18 +58,18 @@ public class FileSystem {
     }
 
     public Boolean deleteFile(String absolutePath) {
-        Log.d(TAG, "deleting at absolute path: " + absolutePath);
+        //    Log.d(TAG, "deleting at absolute path: " + absolutePath);
         File file = new File(absolutePath);
         Boolean success = file.delete();
-        Log.d(TAG, "deleted " + success);
+        //    Log.d(TAG, "deleted " + success);
         return success;
     }
 
     public void listFiles(File directory) {
         String[] fileList = directory.list();
-        Log.d(TAG, "listing files in directory -- " + directory.toString() + "\n");
-        for (String file : fileList) {
-            Log.d(TAG, file);
-        }
+        //    Log.d(TAG, "listing files in directory -- " + directory.toString() + "\n");
+//        for (String file : fileList) {
+//            Log.d(TAG, file);
+//        }
     }
 }
