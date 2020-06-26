@@ -14,23 +14,37 @@ import android.view.View;
 
 import java.util.List;
 
-public class FavoritesActivity extends AppCompatActivity {
-    ActivityFavoritesBinding binding;
+public class FavoritesActivity extends AppCompatActivity implements FavoritesRvAdapter.ViewHolder.OnClickViewListener {
+    private ActivityFavoritesBinding mBinding;
+    private List<MovieInfo> mMovieInfos;
+    private RecyclerView mRecyclerView;
+    private FavoritesRvAdapter mFavoritesRvAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityFavoritesBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
+        mBinding = ActivityFavoritesBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
         setContentView(view);
 
         AppDatabase database = AppDatabase.getInstance(this);
-        List<MovieInfo> infoList = database.dao().getMovieInfoList();
-        FavoritesRvAdapter adapter = new FavoritesRvAdapter(this, infoList);
+        mMovieInfos = database.dao().getMovieInfoList();
+        mFavoritesRvAdapter= new FavoritesRvAdapter(this, mMovieInfos, this);
 
-        RecyclerView recyclerView = binding.activityFavoritesRv;
-        DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        recyclerView.addItemDecoration(decoration);
-        recyclerView.setAdapter(adapter);
+        mRecyclerView = mBinding.activityFavoritesRv;
+        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        mRecyclerView.addItemDecoration(decoration);
+        mRecyclerView.setAdapter(mFavoritesRvAdapter);
+    }
+
+    @Override
+    public void onRemoveButtonClicked(int position) {
+        AppDatabase database = AppDatabase.getInstance(this);
+        database.dao().deleteMovieInfo(mMovieInfos.get(position));
+
+        mMovieInfos = database.dao().getMovieInfoList();
+        mFavoritesRvAdapter.addAll(mMovieInfos);
+        mFavoritesRvAdapter.notifyItemChanged(position);
     }
 }

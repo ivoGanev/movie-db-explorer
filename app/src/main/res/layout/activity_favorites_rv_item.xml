@@ -18,7 +18,7 @@
         android:textSize="26sp"
         app:autoSizeMinTextSize="16sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/fav_rv_btn_remove"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
@@ -71,7 +71,7 @@
         tools:text="Synopsis" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/fav_rv_btn_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
