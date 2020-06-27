@@ -16,9 +16,6 @@ public abstract class AppDatabase  extends RoomDatabase {
         if(mInstance ==null) {
             mInstance = Room.databaseBuilder(context,AppDatabase.class, DB_NAME)
                     .fallbackToDestructiveMigration()
-                    // TODO: remove the line bellow when finished with the
-                    //       main thread tests.
-                    .allowMainThreadQueries()
                     .build();
         }
         return mInstance;

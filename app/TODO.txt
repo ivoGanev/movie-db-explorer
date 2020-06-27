@@ -1,2 +1,3 @@
 TODO: Create a button in trailer fragment element for sharing
-TODO: Polish the app
+TODO: Make accessing the SQL with room on another thread
+TODO: Polish the app!

@@ -6,27 +6,31 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.R;
-import android.ivo.popularmovies.activities.viewmodels.DetailsActivityViewModel;
-import android.ivo.popularmovies.activities.viewmodels.DetailsActivityViewModelFactory;
+import android.ivo.popularmovies.activities.viewmodels.DetailsViewModel;
+import android.ivo.popularmovies.activities.viewmodels.DetailsViewModelFactory;
+import android.ivo.popularmovies.database.AppDao;
 import android.ivo.popularmovies.database.AppDatabase;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    ActivityMovieDetailsBinding mBinding;
-    DetailsActivityViewModel mViewModel;
+    private ActivityMovieDetailsBinding mBinding;
+    private DetailsViewModel mViewModel;
+
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,58 +39,80 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         View view = mBinding.getRoot();
         setContentView(view);
 
-        Intent i = getIntent();
-        Movie movie = i.getParcelableExtra(BundleKeys.MOVIE_BUNDLE_KEY);
-        final Bundle bundle = new Bundle();
-        final Context context = this;
-        final ViewPager viewPager = mBinding.vpMovieDetails;
-        bundle.putParcelable(BundleKeys.MOVIE_BUNDLE_KEY, movie);
+        Movie movie = getIntent()
+                .getParcelableExtra(BundleKeys.MOVIE_BUNDLE_KEY);
 
-        DetailsActivityViewModelFactory factory =
-                new DetailsActivityViewModelFactory(movie, getApplication());
+        DetailsViewModelFactory factory =
+                new DetailsViewModelFactory(movie, getApplication());
 
         mViewModel = new ViewModelProvider(this, factory)
-                .get(DetailsActivityViewModel.class);
+                .get(DetailsViewModel.class);
 
-        mViewModel.getMovie().observe(this, new Observer<Movie>() {
+        mViewModel.loadReviewsAsync();
+        mViewModel.loadTrailersAsync();
+        initViewPager(movie);
+
+        mBinding.tlMovieDetails.setupWithViewPager(mViewPager);
+        mBinding.btnMakeFavorite.setOnClickListener(this);
+
+        final Observer<Boolean> markedAsFavoriteObserver = new Observer<Boolean>() {
             @Override
-            public void onChanged(Movie movie) {
-                viewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), context, bundle));
-                Picasso.get().load(mViewModel.getPosterImageUrl()).into(mBinding.imgMovieDetail);
+            public void onChanged(Boolean aBoolean) {
+                setFavouriteButtonImage(aBoolean);
+                toastShowFavouriteStatus(aBoolean);
+            }
+        };
+        mViewModel.movieMarkedAsFavorite().observe(this, markedAsFavoriteObserver);
+
+        final Context context = this;
+
+        // now the only thing that is left is to check if the movie exists in the database and
+        // set the favorite button icon
+        AppExecutors.getInstance().getDiskIOExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDao dao = AppDatabase.getInstance(context).dao();
+                boolean inDatabase = dao.getMovieInfo(mViewModel.getMovieInfo().getId()) != null;
+                setFavouriteButtonImage(inDatabase);
             }
         });
 
-        mViewModel.loadReviews();
-        mViewModel.loadTrailers();
+        Picasso.get().load(mViewModel.getPosterImageUrl()).into(mBinding.imgMovieDetail);
+    }
 
-        mBinding.tlMovieDetails.setupWithViewPager(viewPager);
-        mBinding.btnFavMovieDetails.setOnClickListener(this);
-
-        AppDatabase appDatabase = AppDatabase.getInstance(this);
-        setFavouriteButtonImage(mViewModel.movieInfoIsInDatabase());
+    private void initViewPager(Movie movie) {
+        Bundle bundle = new Bundle();
+        mViewPager = mBinding.vpMovieDetails;
+        bundle.putParcelable(BundleKeys.MOVIE_BUNDLE_KEY, movie);
+        mViewPager.setAdapter(new DetailsPagerAdapter(getSupportFragmentManager(), this, bundle));
     }
 
     @Override
     public void onClick(View v) {
-        Bitmap posterImage = ((BitmapDrawable)mBinding.imgMovieDetail.getDrawable()).getBitmap();
-        Boolean favouriteSet = mViewModel.setCurrentMovieAsFavourite(posterImage);
-        String message = (favouriteSet)
-                ? "added to favourites"
-                : "removed from favourites";
-        toastShowFavouriteStatus(message);
-        setFavouriteButtonImage(favouriteSet);
+        if (v.getId() == R.id.btn_make_favorite) {
+            Bitmap posterImage = ((BitmapDrawable) mBinding.imgMovieDetail.getDrawable()).getBitmap();
+            // save asynchronously the current movie in the database,
+            // save the bitmap in the file system and
+            // finally emit that the movie is marked as favorite
+            mViewModel.setCurrentMovieAsFavourite(posterImage);
+        }
     }
 
     private void setFavouriteButtonImage(Boolean add) {
         int imageId = (add)
                 ? R.drawable.ic_baseline_favorite_24
                 : R.drawable.ic_baseline_favorite_border_24;
-        mBinding.btnFavMovieDetails.setImageResource(imageId);
+        mBinding.btnMakeFavorite.setImageResource(imageId);
     }
 
-    private void toastShowFavouriteStatus(String status) {
-        Toast.makeText(getApplication().getApplicationContext(),
-                mViewModel.getMovieInfo().getTitle() + " " + status,
+    // Shows a toast message if the current movie is in the 'favorites' database
+    private void toastShowFavouriteStatus(Boolean inDatabase) {
+        String message = (inDatabase)
+                ? "added to favourites"
+                : "removed from favourites";
+
+        Toast.makeText(this,
+                mViewModel.getMovieInfo().getTitle() + " " + message,
                 Toast.LENGTH_SHORT).show();
     }
 }

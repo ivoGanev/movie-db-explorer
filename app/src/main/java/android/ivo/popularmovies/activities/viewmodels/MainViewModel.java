@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-public class MainActivityViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
     private MutableLiveData<List<Movie>> mMovies;
     private ApiClient mApiClient;
     private AppExecutors mAppExecutors;
 
-    public MainActivityViewModel() {
+    public MainViewModel() {
         mApiClient = new ApiClient();
         mAppExecutors = AppExecutors.getInstance();
         mMovies = new MutableLiveData<>();

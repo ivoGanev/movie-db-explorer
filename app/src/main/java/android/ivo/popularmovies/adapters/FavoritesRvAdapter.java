@@ -17,12 +17,12 @@ import java.util.List;
 
 public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.ViewHolder> {
     private final ViewHolder.OnClickViewListener mClickViewListener;
-    private List<MovieInfo> mInfoList;
+    private List<MovieInfo> mMovieInfoList;
     private Context mContext;
 
-    public FavoritesRvAdapter(Context context, List<MovieInfo> infoList, ViewHolder.OnClickViewListener listener) {
+    public FavoritesRvAdapter(Context context, @NonNull List<MovieInfo> movieInfoList, ViewHolder.OnClickViewListener listener) {
         mContext = context;
-        mInfoList = infoList;
+        mMovieInfoList = movieInfoList;
         mClickViewListener = listener;
     }
 
@@ -35,7 +35,7 @@ public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MovieInfo info = mInfoList.get(position);
+        MovieInfo info = mMovieInfoList.get(position);
         ActivityFavoritesRvItemBinding binding = holder.mBinding;
 
         binding.favRvItemSynopsis.setText(info.getPlotSynopsis());
@@ -49,7 +49,13 @@ public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.
 
     @Override
     public int getItemCount() {
-        return mInfoList.size();
+        return mMovieInfoList.size();
+    }
+
+    public void addAll(@NonNull List<MovieInfo> movieInfos) {
+        mMovieInfoList.clear();
+        mMovieInfoList.addAll(movieInfos);
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -73,13 +79,6 @@ public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.
         public interface OnClickViewListener {
             void onRemoveButtonClicked(int position);
         }
-    }
-
-    public void addAll(List<MovieInfo> movieInfos)
-    {
-        mInfoList.clear();
-        mInfoList.addAll(movieInfos);
-        notifyDataSetChanged();
     }
 
 }

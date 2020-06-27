@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
-import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModel;
-import android.ivo.popularmovies.activities.viewmodels.MainActivityViewModelFactory;
+import android.ivo.popularmovies.activities.viewmodels.MainViewModel;
+import android.ivo.popularmovies.activities.viewmodels.MainViewModelFactory;
 import android.ivo.popularmovies.filesystem.FileSystem;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private RecyclerView mRecyclerView;
     private MovieRvAdapter mMovieRvAdapter;
-    private MainActivityViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieRvAdapter);
 
-        MainActivityViewModelFactory factory = new MainActivityViewModelFactory();
-        mViewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);
+        MainViewModelFactory factory = new MainViewModelFactory();
+        mViewModel = new ViewModelProvider(this, factory).get(MainViewModel.class);
 
         mViewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override

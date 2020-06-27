@@ -2,6 +2,7 @@ package android.ivo.popularmovies.database;
 
 import android.ivo.popularmovies.models.MovieInfo;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 @Dao
 public interface AppDao {
     @Query("SELECT * FROM movies")
-    public List<MovieInfo> getMovieInfoList();
+    public LiveData<List<MovieInfo>> getEnitities();
 
     @Query("SELECT * FROM movies WHERE mId=:id")
     public MovieInfo getMovieInfo(int id);
