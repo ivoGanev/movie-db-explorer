@@ -32,7 +32,9 @@ public class TrailerFragment extends MovieBundledFragment implements TrailerRvAd
         FragmentMovieTrailerBinding binding = (FragmentMovieTrailerBinding) getInflatedViewBinding();
         TrailerRvAdapter trailerRvAdapter = new TrailerRvAdapter(movie.getTrailers(), this);
         DividerItemDecoration decoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
+
         binding.movieTrailerRv.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
+        binding.movieTrailerRv.setNestedScrollingEnabled(true);
         binding.movieTrailerRv.addItemDecoration(decoration);
         binding.movieTrailerRv.setAdapter(trailerRvAdapter);
     }
