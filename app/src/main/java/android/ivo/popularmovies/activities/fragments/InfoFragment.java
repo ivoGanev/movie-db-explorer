@@ -22,6 +22,11 @@ public class InfoFragment extends MovieBundledFragment {
     }
 
     @Override
+    public void onDataChanged(Movie movie) {
+
+    }
+
+    @Override
     void onBundleLoad(Movie movie) {
         MovieInfo movieInfo = movie.getMovieInfo();
         FragmentMovieInfoBinding binding = (FragmentMovieInfoBinding) getInflatedViewBinding();
