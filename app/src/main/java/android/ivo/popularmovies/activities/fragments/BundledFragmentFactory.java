@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 public class BundledFragmentFactory {
 
-    public static <T extends MovieBundledFragment> T createFragment(Class<T> instance, Bundle bundle)
+    public static <T extends MovieFragment> T createFragment(Class<T> instance, Bundle bundle)
     {
         T fragment = null;
         try {

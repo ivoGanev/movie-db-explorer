@@ -16,7 +16,18 @@ public class TrailerRvAdapter extends RecyclerView.Adapter<TrailerRvAdapter.View
     private final List<Trailer> mTrailers;
     private final OnClickViewListener mListener;
 
-    public TrailerRvAdapter(List<Trailer> trailers, @NonNull OnClickViewListener listener) {
+    public List<Trailer> getTrailers() {
+        return mTrailers;
+    }
+
+    public void setTrailers(List<Trailer> trailers)
+    {
+        mTrailers.clear();
+        mTrailers.addAll(trailers);
+        notifyDataSetChanged();
+    }
+
+    public TrailerRvAdapter(@NonNull List<Trailer> trailers, @NonNull OnClickViewListener listener) {
         mTrailers = trailers;
         mListener = listener;
     }

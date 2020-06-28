@@ -1,11 +1,9 @@
 package android.ivo.popularmovies.activities.fragments;
 
-import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.activities.viewmodels.DetailsViewModel;
-import android.ivo.popularmovies.activities.viewmodels.DetailsViewModelFactory;
 import android.ivo.popularmovies.models.Movie;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.PrecomputedText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,35 +16,33 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-public abstract class MovieBundledFragment extends Fragment {
+public abstract class MovieFragment extends Fragment {
     private ViewBinding mViewBinding;
+    private DetailsViewModel mViewModel;
 
-    abstract void onBundleLoad(Movie movie);
+    public DetailsViewModel getViewModel() {
+        return mViewModel;
+    }
 
-    @Nullable
     @Override
     @CallSuper
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mViewBinding = getViewBinding(inflater, container);
 
         if (mViewBinding == null)
             throw new IllegalStateException("Cannot create a view without a View Binding. Ensure you present a view with getViewBinding");
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Movie movie = getArguments().getParcelable(BundleKeys.MOVIE_BUNDLE_KEY);
-            onBundleLoad(movie);
-            DetailsViewModelFactory factory =
-                    new DetailsViewModelFactory(movie, requireActivity().getApplication());
-            DetailsViewModel viewModel = new ViewModelProvider(requireActivity(), factory)
-                    .get(DetailsViewModel.class);
-            viewModel.getMovie().observe(requireActivity(), new Observer<Movie>() {
-                @Override
-                public void onChanged(Movie movie) {
-                    onDataChanged(movie);
-                }
-            });
-        }
+        mViewModel = new ViewModelProvider(requireActivity())
+                .get(DetailsViewModel.class);
+        init(mViewModel.getMovie().getValue());
+
+        mViewModel.getMovie().observe(requireActivity(), new Observer<Movie>() {
+            @Override
+            public void onChanged(Movie movie) {
+                onDataChanged(movie);
+            }
+        });
+
         return mViewBinding.getRoot();
     }
 
@@ -56,7 +52,17 @@ public abstract class MovieBundledFragment extends Fragment {
         return mViewBinding;
     }
 
-    public abstract void onDataChanged(Movie movie);
+    /**
+     * This method is called whenever the <b>DetailsViewModel</> changes its data. Currently that is
+     * when the reviews and trailers have been loaded.
+     */
+    public void onDataChanged(Movie movie){};
+
+    /**
+     * Use this method instead of onCreateView. It is called after the ViewModel and view bindings
+     * being initialised.
+     */
+    public abstract void init(Movie movie);
 
     @Override
     @CallSuper

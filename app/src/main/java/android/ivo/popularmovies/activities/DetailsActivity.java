@@ -12,7 +12,6 @@ import android.ivo.popularmovies.AppExecutors;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.R;
 import android.ivo.popularmovies.activities.viewmodels.DetailsViewModel;
-import android.ivo.popularmovies.activities.viewmodels.DetailsViewModelFactory;
 import android.ivo.popularmovies.database.AppDao;
 import android.ivo.popularmovies.database.AppDatabase;
 import android.ivo.popularmovies.models.Movie;
@@ -20,7 +19,6 @@ import android.ivo.popularmovies.databinding.ActivityMovieDetailsBinding;
 import android.ivo.popularmovies.adapters.DetailsPagerAdapter;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,14 +40,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Movie movie = getIntent()
                 .getParcelableExtra(BundleKeys.MOVIE_BUNDLE_KEY);
 
-        DetailsViewModelFactory factory =
-                new DetailsViewModelFactory(movie, getApplication());
-
-        mViewModel = new ViewModelProvider(this, factory)
+        mViewModel = new ViewModelProvider(this)
                 .get(DetailsViewModel.class);
 
-        mViewModel.loadReviewsAsync();
-        mViewModel.loadTrailersAsync();
+        mViewModel.setMovie(movie);
         initViewPager(movie);
 
         mBinding.tlMovieDetails.setupWithViewPager(mViewPager);

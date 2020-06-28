@@ -6,6 +6,8 @@ import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.models.MovieInfo;
 
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.viewbinding.ViewBinding;
 
-public class InfoFragment extends MovieBundledFragment {
+public class InfoFragment extends MovieFragment {
 
     @Override
     public ViewBinding getViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
@@ -22,14 +24,9 @@ public class InfoFragment extends MovieBundledFragment {
     }
 
     @Override
-    public void onDataChanged(Movie movie) {
-
-    }
-
-    @Override
-    void onBundleLoad(Movie movie) {
-        MovieInfo movieInfo = movie.getMovieInfo();
-        FragmentMovieInfoBinding binding = (FragmentMovieInfoBinding) getInflatedViewBinding();
+    public void init(Movie movie) {
+        MovieInfo movieInfo = getViewModel().getMovieInfo();
+        FragmentMovieInfoBinding binding = (FragmentMovieInfoBinding)getInflatedViewBinding();
 
         binding.tvDetailsTitle.setText(movieInfo.getTitle());
         binding.tvPlotSynopsis.setText(movieInfo.getPlotSynopsis());

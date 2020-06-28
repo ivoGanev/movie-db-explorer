@@ -20,19 +20,16 @@ import java.io.File;
 
 public class DetailsViewModel extends AndroidViewModel {
     private static final String TAG = DetailsViewModel.class.getSimpleName();
-
-    private final MutableLiveData<Movie> mMovie;
     private final ApiClient mApiClient;
     private final AppDatabase mDatabase;
     private final AppExecutors mExecutors;
-
+    private MutableLiveData<Movie> mMovie;
     private MutableLiveData<Boolean> mMovieMarkedAsFavorite = new MutableLiveData<>();
 
-    public DetailsViewModel(@NonNull Movie movie, @NonNull Application application) {
+    public DetailsViewModel(@NonNull Application application) {
         super(application);
         mDatabase = AppDatabase.getInstance(application.getApplicationContext());
         mExecutors = AppExecutors.getInstance();
-        mMovie = new MutableLiveData<>(movie);
         mApiClient = ApiClient.getInstance();
     }
 
@@ -40,11 +37,13 @@ public class DetailsViewModel extends AndroidViewModel {
         return mMovie;
     }
 
-    public void loadReviewsAsync() {
+    /**
+     * Initializes the Movie as MutableLiveData and loads the reviews and trailers
+     * asynchronously to it.
+     */
+    public void setMovie(Movie movie) {
+        mMovie = new MutableLiveData<>(movie);
         mApiClient.postReview(mMovie);
-    }
-
-    public void loadTrailersAsync() {
         mApiClient.postTrailer(mMovie);
     }
 
