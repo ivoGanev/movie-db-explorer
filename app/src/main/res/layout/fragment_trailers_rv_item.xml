@@ -10,15 +10,28 @@
         android:id="@+id/trailer_et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/trailer_btn_share"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Trailer Name" />
 
-    <Button
+    <ImageButton
+        android:background="#0000"
         android:id="@+id/trailer_btn_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Trailer"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/trailer_btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#0000"
+        app:layout_constraintBottom_toBottomOf="@+id/trailer_btn_link"
+        app:layout_constraintEnd_toStartOf="@+id/trailer_btn_link"
+        app:srcCompat="@drawable/ic_baseline_share_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

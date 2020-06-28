@@ -13,17 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class TrailerRvAdapter extends RecyclerView.Adapter<TrailerRvAdapter.ViewHolder> {
-    private List<Trailer> mTrailers;
+    private final List<Trailer> mTrailers;
+    private final OnClickViewListener mListener;
 
-    public TrailerRvAdapter(List<Trailer> trailers) {
+    public TrailerRvAdapter(List<Trailer> trailers, @NonNull OnClickViewListener listener) {
         mTrailers = trailers;
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_trailers_rv_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -36,13 +38,33 @@ public class TrailerRvAdapter extends RecyclerView.Adapter<TrailerRvAdapter.View
         return mTrailers.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder
-    {
-        FragmentTrailersRvItemBinding mBinding;
+   public interface OnClickViewListener {
+        void onTrailerButtonClicked(int position);
 
-        public ViewHolder(@NonNull View itemView) {
+        void onShareButtonClicked(int position);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final OnClickViewListener mListener;
+        private final FragmentTrailersRvItemBinding mBinding;
+
+        public ViewHolder(@NonNull View itemView, OnClickViewListener listener) {
             super(itemView);
+            mListener = listener;
             mBinding = FragmentTrailersRvItemBinding.bind(itemView);
+            mBinding.trailerBtnLink.setOnClickListener(this);
+            mBinding.trailerBtnShare.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                if (v.getId() == R.id.trailer_btn_link) {
+                    mListener.onTrailerButtonClicked(getAdapterPosition());
+                } else if (v.getId() == R.id.trailer_btn_share) {
+                    mListener.onShareButtonClicked(getAdapterPosition());
+                }
+            }
         }
     }
 }

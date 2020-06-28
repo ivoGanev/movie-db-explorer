@@ -1,3 +1,4 @@
 TODO: Create a button in trailer fragment element for sharing
-TODO: Make accessing the SQL with room on another thread
+TODO: Fix all layout to show when there is no data to show
+TODO: Add a functionality for the user to be able to visit the trailer website
 TODO: Polish the app!
