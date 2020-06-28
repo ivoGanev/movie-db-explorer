@@ -47,7 +47,7 @@ public class Trailer implements Parcelable {
         dest.writeString(mName);
     }
 
-    public String getTrailerKey() {
+    public String getKey() {
         return mTrailerKey;
     }
 
