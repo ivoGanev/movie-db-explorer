@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.ivo.popularmovies.activities.viewmodels.FavoritesViewModel;
 import android.ivo.popularmovies.adapters.FavoritesRvAdapter;
-import android.ivo.popularmovies.database.AppDatabase;
 import android.ivo.popularmovies.databinding.ActivityFavoritesBinding;
 import android.ivo.popularmovies.models.MovieInfo;
 import android.os.Bundle;

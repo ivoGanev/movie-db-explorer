@@ -6,8 +6,6 @@ import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.models.MovieInfo;
 
 import android.ivo.popularmovies.databinding.FragmentMovieInfoBinding;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 

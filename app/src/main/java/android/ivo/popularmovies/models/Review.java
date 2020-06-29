@@ -3,6 +3,8 @@ package android.ivo.popularmovies.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class Review implements Parcelable {
     private Review(Parcel in) {
         mAuthor = in.readString();
@@ -49,6 +51,7 @@ public class Review implements Parcelable {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Review{" +
                 "mAuthor='" + mAuthor + '\'' +

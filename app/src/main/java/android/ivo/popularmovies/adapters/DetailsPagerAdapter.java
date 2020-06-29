@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class DetailsPagerAdapter extends FragmentPagerAdapter {
     private static final int COUNT = 3;
     private final Context mContext;
-    private Bundle mBundle;
+    private final Bundle mBundle;
 
     public DetailsPagerAdapter(FragmentManager fragmentManager, Context context, Bundle bundle) {
         super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

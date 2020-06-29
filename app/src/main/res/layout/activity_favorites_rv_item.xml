@@ -40,7 +40,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="@+id/fav_rv_item_title"
         app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_title"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/img_desc_movie_thumbnail" />
 
     <TextView
         android:id="@+id/fav_rv_item_date"
@@ -82,5 +83,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fav_rv_item_title"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_remove_24" />
+        app:srcCompat="@drawable/ic_baseline_remove_24"
+        android:contentDescription="@string/remove" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,17 +14,17 @@ import java.util.List;
 @Dao
 public interface AppDao {
     @Query("SELECT * FROM movies")
-    public LiveData<List<MovieInfo>> getEnitities();
+    LiveData<List<MovieInfo>> getEntities();
 
     @Query("SELECT * FROM movies WHERE mId=:id")
-    public MovieInfo getMovieInfo(int id);
+    MovieInfo getMovieInfo(int id);
 
     @Insert
-    public void insertMovieInfo(MovieInfo movieInfo);
+    void insertMovieInfo(MovieInfo movieInfo);
 
     @Update
-    public void updateMovieInfo(MovieInfo movieInfo);
+    void updateMovieInfo(MovieInfo movieInfo);
 
     @Delete
-    public void deleteMovieInfo(MovieInfo movieInfo);
+    void deleteMovieInfo(MovieInfo movieInfo);
 }

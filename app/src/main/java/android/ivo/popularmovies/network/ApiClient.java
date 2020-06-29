@@ -27,9 +27,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class ApiClient {
-
-    private AppExecutors mAppExecutors;
-    private SynchronizedString mApiCall = new SynchronizedString();
+    private final AppExecutors mAppExecutors;
 
     public ApiClient() {
         mAppExecutors = AppExecutors.getInstance();
@@ -41,7 +39,7 @@ public class ApiClient {
 
     // needs to be asynchronous
     private String fetchJsonData(String urlAddress) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(urlAddress);
         } catch (MalformedURLException e) {
@@ -127,12 +125,13 @@ public class ApiClient {
     }
 
     public void postReview(@NonNull final MutableLiveData<Movie> movie) {
-        MovieInfo movieInfo = getValidMovieInfo(movie);
+        MovieInfo movieInfo = requireNonNullMovieInfo(movie);
         String urlAddress = UrlAddressBook.queryMovieReviews(Integer.toString(movieInfo.getId())).get();
 
         final Future<String> future = fetchJsonDataAsync(urlAddress);
         mAppExecutors.getNetworkExecutor().execute(new Runnable() {
             List<Review> reviews;
+
             @Override
             public void run() {
                 try {
@@ -144,7 +143,7 @@ public class ApiClient {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    movie.getValue().getReview().addAll(reviews);
+                    movie.getValue().getReview().addAll(this.reviews);
                     movie.postValue(movie.getValue());
                 }
             }
@@ -152,12 +151,13 @@ public class ApiClient {
     }
 
     public void postTrailer(@NonNull final MutableLiveData<Movie> movie) {
-        MovieInfo movieInfo = getValidMovieInfo(movie);
+        MovieInfo movieInfo = requireNonNullMovieInfo(movie);
         String urlAddress = UrlAddressBook.queryMovieTrailer(Integer.toString(movieInfo.getId())).get();
 
         final Future<String> future = fetchJsonDataAsync(urlAddress);
         mAppExecutors.getNetworkExecutor().execute(new Runnable() {
             List<Trailer> trailers;
+
             @Override
             public void run() {
                 try {
@@ -176,10 +176,11 @@ public class ApiClient {
         });
     }
 
-    private MovieInfo getValidMovieInfo(@NonNull MutableLiveData<Movie> movie) {
+    private MovieInfo requireNonNullMovieInfo(@NonNull MutableLiveData<Movie> movie) {
         MovieInfo movieInfo = movie.getValue().getMovieInfo();
+
         if (movieInfo == null)
-            throw new NullPointerException("Trying to get movie information but none can be found.");
+            throw new NullPointerException("MovieInfo is required to be non-null");
         return movieInfo;
     }
 
@@ -198,22 +199,12 @@ public class ApiClient {
             return new MdbDiscover(API_KEY);
         }
 
-        public static MdbReview queryMovieReviews(String movieId) { return new MdbReview(API_KEY, movieId); }
-
-        public static MdbTrailer queryMovieTrailer(String movieId) { return new MdbTrailer(API_KEY, movieId); }
-    }
-
-    private static class SynchronizedString {
-        private String mString;
-
-        public synchronized String setString(String string) {
-            mString = string;
-            return mString;
+        public static MdbReview queryMovieReviews(String movieId) {
+            return new MdbReview(API_KEY, movieId);
         }
 
-        public synchronized String getString() {
-            return mString;
+        public static MdbTrailer queryMovieTrailer(String movieId) {
+            return new MdbTrailer(API_KEY, movieId);
         }
     }
-
 }

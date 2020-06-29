@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieViewHolder> {
     private static final String TAG = "MovieListAdapter";
-    private int mTotalItems;
-    private ArrayList<Movie> mMovies;
+    private final int mTotalItems;
+    private final ArrayList<Movie> mMovies;
     private final MovieAdapterOnClickListener mClickListener;
 
     public MovieRvAdapter(ArrayList<Movie> movies, Context context) {
@@ -67,8 +67,8 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.MovieVie
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView mMoviePoster;
-        TextView mMovieTitle;
+        final ImageView mMoviePoster;
+        final TextView mMovieTitle;
 
         MovieViewHolder(@NonNull View itemView) {
             super(itemView);

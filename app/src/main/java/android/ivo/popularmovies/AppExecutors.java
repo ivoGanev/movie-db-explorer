@@ -3,6 +3,8 @@ package android.ivo.popularmovies;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.NonNull;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,11 +40,11 @@ public class AppExecutors {
         private static final AppExecutors INSTANCE = new AppExecutors();
     }
 
-    private static class MainThreadExecutor implements Executor {
-        private Handler mHandler = new android.os.Handler(Looper.getMainLooper());
+    public static class MainThreadExecutor implements Executor {
+        private final Handler mHandler = new android.os.Handler(Looper.getMainLooper());
 
         @Override
-        public void execute(Runnable command) {
+        public void execute(@NonNull Runnable command) {
             mHandler.post(command);
         }
     }

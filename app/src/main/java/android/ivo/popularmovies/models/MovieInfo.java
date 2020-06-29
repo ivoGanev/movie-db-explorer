@@ -3,6 +3,7 @@ package android.ivo.popularmovies.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -100,6 +101,7 @@ public class MovieInfo implements Parcelable {
     public int getId() { return mId; }
 
     @Override
+    @NonNull
     public String toString() {
         return "Movie{" +
                 "mTitle='" + mTitle + '\'' +

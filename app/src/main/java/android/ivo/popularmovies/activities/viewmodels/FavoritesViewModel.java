@@ -14,20 +14,20 @@ import java.util.List;
 
 public class FavoritesViewModel extends AndroidViewModel {
     private static final String TAG = FavoritesViewModel.class.getCanonicalName();
-    private AppDatabase mDatabase;
-    private AppExecutors mExecutors;
+    private final AppDatabase mDatabase;
+    private final AppExecutors mExecutors;
     private LiveData<List<MovieInfo>> mLiveData;
 
     public FavoritesViewModel(@NonNull Application application) {
         super(application);
         mDatabase = AppDatabase.getInstance(getApplication().getApplicationContext());
         mExecutors = AppExecutors.getInstance();
-        mLiveData = mDatabase.dao().getEnitities();
+        mLiveData = mDatabase.dao().getEntities();
     }
 
     public LiveData<List<MovieInfo>> getLiveData() {
         if (mLiveData == null) {
-            mLiveData = mDatabase.dao().getEnitities();
+            mLiveData = mDatabase.dao().getEntities();
         }
         return mLiveData;
     }

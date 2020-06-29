@@ -43,6 +43,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         mViewModel = new ViewModelProvider(this)
                 .get(DetailsViewModel.class);
 
+        if(movie==null)
+            throw new NullPointerException("Couldn't retrieve a Movie parcel.");
+
         mViewModel.setMovie(movie);
         initViewPager(movie);
 
@@ -60,8 +63,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         final Context context = this;
 
-        // now the only thing that is left is to check if the movie exists in the database and
-        // set the favorite button icon
         AppExecutors.getInstance().getDiskIOExecutor().execute(new Runnable() {
             @Override
             public void run() {

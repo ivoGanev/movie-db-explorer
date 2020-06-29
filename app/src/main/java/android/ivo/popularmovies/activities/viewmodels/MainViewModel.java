@@ -11,21 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<List<Movie>> mMovies;
-    private ApiClient mApiClient;
+    private final ApiClient mApiClient;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         mApiClient = new ApiClient();
-        mMovies = new MutableLiveData<>();
     }
 
     public LiveData<List<Movie>> getMovies() {
+        if(mMovies==null)
+            mMovies = new MutableLiveData<>();
         return mMovies;
     }
 

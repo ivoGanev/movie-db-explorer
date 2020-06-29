@@ -3,7 +3,6 @@ package android.ivo.popularmovies.activities.fragments;
 import android.ivo.popularmovies.activities.viewmodels.DetailsViewModel;
 import android.ivo.popularmovies.models.Movie;
 import android.os.Bundle;
-import android.text.PrecomputedText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public abstract class MovieFragment extends Fragment {
      * This method is called whenever the <b>DetailsViewModel</> changes its data. Currently that is
      * when the reviews and trailers have been loaded.
      */
-    public void onDataChanged(Movie movie){};
+    public void onDataChanged(Movie movie){}
 
     /**
      * Use this method instead of onCreateView. It is called after the ViewModel and view bindings

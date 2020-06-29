@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.ViewHolder> {
-    private List<Review> mReviews;
+    private final List<Review> mReviews;
 
     public ReviewsRvAdapter(List<Review> reviews) {
         mReviews = reviews;
@@ -38,7 +38,7 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private FragmentReviewsRvItemBinding mBinding;
+        private final FragmentReviewsRvItemBinding mBinding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

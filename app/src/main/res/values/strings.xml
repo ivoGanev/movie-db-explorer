@@ -14,5 +14,8 @@
     <string name="main_menu_fav">favorites</string>
     <string name="no_reviews_found">No reviews found for this movie.</string>
     <string name="no_trailers_found">No trailers found for this movie.</string>
+    <string name="remove">Remove</string>
+    <string name="img_desc_movie_thumbnail">Movie Thumbnail</string>
+    <string name="desc_img_movie_poster">Movie Poster</string>
 
 </resources>

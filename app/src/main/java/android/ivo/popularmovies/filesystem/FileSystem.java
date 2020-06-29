@@ -1,9 +1,7 @@
 package android.ivo.popularmovies.filesystem;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.util.Log;
 
 import java.io.File;
@@ -58,18 +56,20 @@ public class FileSystem {
     }
 
     public Boolean deleteFile(String absolutePath) {
-        //    Log.d(TAG, "deleting at absolute path: " + absolutePath);
         File file = new File(absolutePath);
-        Boolean success = file.delete();
-        //    Log.d(TAG, "deleted " + success);
-        return success;
+        return file.delete();
     }
 
+    /**
+     * Lists all files in Logcat
+     * */
     public void listFiles(File directory) {
         String[] fileList = directory.list();
-        //    Log.d(TAG, "listing files in directory -- " + directory.toString() + "\n");
-//        for (String file : fileList) {
-//            Log.d(TAG, file);
-//        }
+        if(fileList!=null) {
+            Log.d(TAG, "listing files in directory -- " + directory.toString() + "\n");
+            for (String file : fileList) {
+                Log.d(TAG, file);
+            }
+        }
     }
 }

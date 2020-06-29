@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.activities.viewmodels.MainViewModel;
-import android.ivo.popularmovies.activities.viewmodels.MainViewModelFactory;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-        // movie order type should be remembered throughout the device but not saved
         mViewModel.initMoviesInSavedOrder();
     }
 
@@ -69,11 +67,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnClick(int position) {
-        Intent i = new Intent(this, DetailsActivity.class);
-        Movie movie = mViewModel.getMovies().getValue().get(position);
+        Intent movieDetailsIntent = new Intent(this, DetailsActivity.class);
 
-        i.putExtra(BundleKeys.MOVIE_BUNDLE_KEY, movie);
-        startActivity(i);
+        // getValue() is called on the main thread so it shouldn't impose any problems
+        // being NOT_SET
+        @SuppressWarnings("ConstantConditions")
+        Movie movie = mViewModel.getMovies()
+                .getValue()
+                .get(position);
+
+        movieDetailsIntent.putExtra(BundleKeys.MOVIE_BUNDLE_KEY, movie);
+        startActivity(movieDetailsIntent);
     }
 
     @Override

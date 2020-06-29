@@ -15,9 +15,9 @@ public class Trailer implements Parcelable {
             return new Trailer[size];
         }
     };
-    private String mTrailerKey;
-    private String mSite;
-    private String mName;
+    private final String mTrailerKey;
+    private final String mSite;
+    private final String mName;
 
     public Trailer(String trailerKey, String site, String name) {
         mTrailerKey = trailerKey;

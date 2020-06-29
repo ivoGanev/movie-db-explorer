@@ -19,12 +19,11 @@ import androidx.lifecycle.MutableLiveData;
 import java.io.File;
 
 public class DetailsViewModel extends AndroidViewModel {
-    private static final String TAG = DetailsViewModel.class.getSimpleName();
     private final ApiClient mApiClient;
     private final AppDatabase mDatabase;
     private final AppExecutors mExecutors;
     private MutableLiveData<Movie> mMovie;
-    private MutableLiveData<Boolean> mMovieMarkedAsFavorite = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mMovieMarkedAsFavorite;
 
     public DetailsViewModel(@NonNull Application application) {
         super(application);
@@ -41,7 +40,7 @@ public class DetailsViewModel extends AndroidViewModel {
      * Initializes the Movie as MutableLiveData and loads the reviews and trailers
      * asynchronously to it.
      */
-    public void setMovie(Movie movie) {
+    public void setMovie(@NonNull Movie movie) {
         mMovie = new MutableLiveData<>(movie);
         mApiClient.postReview(mMovie);
         mApiClient.postTrailer(mMovie);
@@ -97,12 +96,14 @@ public class DetailsViewModel extends AndroidViewModel {
         if (!inDatabase) {
             fileSystem.saveBitmap(bitmap, directory, Integer.toString(getMovieInfo().getId()));
         } else {
-            String absolutePath = getApplication().getFilesDir() + "/" + Integer.toString(getMovieInfo().getId());
+            String absolutePath = getApplication().getFilesDir() + "/" + getMovieInfo().getId();
             fileSystem.deleteFile(absolutePath);
         }
     }
 
     public LiveData<Boolean> movieMarkedAsFavorite() {
+        if(mMovieMarkedAsFavorite==null)
+            mMovieMarkedAsFavorite = new MutableLiveData<>();
         return mMovieMarkedAsFavorite;
     }
 

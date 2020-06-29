@@ -25,7 +25,7 @@ public class Movie implements Parcelable {
     public Movie(final MovieInfo movieInfo) {
         mMovieInfo = movieInfo;
         mReviews = new ArrayList<>();
-        mTrailers =  new ArrayList<>();
+        mTrailers = new ArrayList<>();
     }
 
     protected Movie(Parcel in) {
@@ -36,7 +36,7 @@ public class Movie implements Parcelable {
         in.readTypedArray(reviews, Review.CREATOR);
         in.readTypedArray(trailers, Trailer.CREATOR);
 
-        mReviews = new ArrayList<>(Arrays.asList(reviews)) ;
+        mReviews = new ArrayList<>(Arrays.asList(reviews));
         mTrailers = new ArrayList<>(Arrays.asList(trailers));
     }
 

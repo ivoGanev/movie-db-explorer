@@ -17,8 +17,8 @@ import java.util.List;
 
 public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.ViewHolder> {
     private final ViewHolder.OnClickViewListener mClickViewListener;
-    private List<MovieInfo> mMovieInfoList;
-    private Context mContext;
+    private final List<MovieInfo> mMovieInfoList;
+    private final Context mContext;
 
     public FavoritesRvAdapter(Context context, @NonNull List<MovieInfo> movieInfoList, ViewHolder.OnClickViewListener listener) {
         mContext = context;
@@ -59,7 +59,7 @@ public class FavoritesRvAdapter extends RecyclerView.Adapter<FavoritesRvAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ActivityFavoritesRvItemBinding mBinding;
+        final ActivityFavoritesRvItemBinding mBinding;
         private OnClickViewListener mOnClickViewListener;
 
         public ViewHolder(@NonNull View itemView, OnClickViewListener listener) {

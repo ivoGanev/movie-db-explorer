@@ -10,7 +10,7 @@ public abstract class MdbUri {
     private static final String TAG = MdbUri.class.getSimpleName();
     private static final String API_QUERY_KEY = "api_key";
     private final static String SCHEME = "https";
-    private String mApiKey;
+    private final String mApiKey;
 
     MdbUri(String apiKey) {
         mApiKey = apiKey;
