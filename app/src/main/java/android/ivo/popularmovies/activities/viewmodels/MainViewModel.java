@@ -1,24 +1,27 @@
 package android.ivo.popularmovies.activities.viewmodels;
 
-import android.ivo.popularmovies.AppExecutors;
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.network.ApiClient;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.network.uri.MdbDiscover;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<List<Movie>> mMovies;
     private ApiClient mApiClient;
-    private AppExecutors mAppExecutors;
 
-    public MainViewModel() {
+    public MainViewModel(@NonNull Application application) {
+        super(application);
         mApiClient = new ApiClient();
-        mAppExecutors = AppExecutors.getInstance();
         mMovies = new MutableLiveData<>();
     }
 
@@ -26,8 +29,22 @@ public class MainViewModel extends ViewModel {
         return mMovies;
     }
 
-    public void updateMovies(@MdbDiscover.OrderType final String orderType)
-    {
+    public void initMoviesInSavedOrder() {
+        SharedPreferences preferences = getApplication()
+                .getSharedPreferences(BundleKeys.MOVIE_SHARED_PREFS, 0);
+        String order = preferences.getString(BundleKeys.MOVIE_SEARCH_ORDER, null);
+        if (order == null)
+            order = MdbDiscover.POPULAR;
+        mApiClient.postMovies(order, mMovies);
+    }
+
+    public void setMoviesInOrder(@MdbDiscover.OrderType final String orderType) {
         mApiClient.postMovies(orderType, mMovies);
+        SharedPreferences preferences = getApplication()
+                .getSharedPreferences(BundleKeys.MOVIE_SHARED_PREFS, 0);
+        preferences
+                .edit()
+                .putString(BundleKeys.MOVIE_SEARCH_ORDER, orderType)
+                .apply();
     }
 }

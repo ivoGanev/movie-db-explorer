@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.ivo.popularmovies.BundleKeys;
 import android.ivo.popularmovies.activities.viewmodels.MainViewModel;
 import android.ivo.popularmovies.activities.viewmodels.MainViewModelFactory;
-import android.ivo.popularmovies.filesystem.FileSystem;
 import android.ivo.popularmovies.models.Movie;
 import android.ivo.popularmovies.adapters.MovieRvAdapter;
 import android.ivo.popularmovies.R;
@@ -50,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMovieRvAdapter);
 
-        MainViewModelFactory factory = new MainViewModelFactory();
-        mViewModel = new ViewModelProvider(this, factory).get(MainViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         mViewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override
@@ -59,10 +57,9 @@ public class MainActivity extends AppCompatActivity implements
                 updateUI();
             }
         });
-        mViewModel.updateMovies(MdbDiscover.POPULAR);
 
-        FileSystem fs = new FileSystem();
-        fs.listFiles(getFilesDir());
+        // movie order type should be remembered throughout the device but not saved
+        mViewModel.initMoviesInSavedOrder();
     }
 
     public void updateUI() {
@@ -88,13 +85,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         if (item.getItemId() == R.id.menu_sort_popular) {
-            mViewModel.updateMovies(MdbDiscover.POPULAR);
+            mViewModel.setMoviesInOrder(MdbDiscover.POPULAR);
         } else if (item.getItemId() == R.id.menu_sort_rating) {
-            mViewModel.updateMovies(MdbDiscover.TOP_RATED);
+            mViewModel.setMoviesInOrder(MdbDiscover.TOP_RATED);
         } else if (item.getItemId() == R.id.menu_sort_now_playing) {
-            mViewModel.updateMovies(MdbDiscover.NOW_PLAYING);
+            mViewModel.setMoviesInOrder(MdbDiscover.NOW_PLAYING);
         } else if (item.getItemId() == R.id.menu_sort_upcoming) {
-            mViewModel.updateMovies(MdbDiscover.UPCOMING);
+            mViewModel.setMoviesInOrder(MdbDiscover.UPCOMING);
         } else if (item.getItemId() == R.id.main_menu_fav) {
             Intent i = new Intent(this, FavoritesActivity.class);
             startActivity(i);
