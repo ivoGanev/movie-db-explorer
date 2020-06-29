@@ -2,26 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="@dimen/padding_normal"
-    android:layout_marginBottom="@dimen/padding_normal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding_normal"
+    android:layout_marginBottom="@dimen/padding_normal">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fav_rv_item_title"
-        android:layout_width="356dp"
-        android:layout_height="61dp"
+        android:layout_width="336dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/padding_normal"
-        android:paddingRight="@dimen/padding_normal"
-        android:paddingBottom="@dimen/padding_normal"
         android:textSize="26sp"
         app:autoSizeMinTextSize="16sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/fav_rv_btn_remove"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Title" />
+        tools:text="The title of the movie" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/fav_rv_details"
@@ -34,11 +35,10 @@
         android:id="@+id/fav_rv_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_normal"
-        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginTop="8dp"
         android:paddingBottom="@dimen/padding_normal"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fav_rv_item_title"
         app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_title"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -53,7 +53,7 @@
         android:paddingRight="14dp"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/fav_rv_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/fav_rv_item_title"
+        app:layout_constraintTop_toTopOf="@+id/fav_rv_item_image"
         tools:text="24/16/2020" />
 
     <TextView
@@ -74,13 +74,13 @@
         android:id="@+id/fav_rv_btn_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#FFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/fav_rv_item_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fav_rv_item_title"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_remove_24" />
-
-    <!--TODO: Introduce remove button to delete the current element -->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
