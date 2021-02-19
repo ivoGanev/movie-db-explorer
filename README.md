@@ -1,16 +1,11 @@
-#  popularMovies
-Android app displaying popular movieInfos
-##  ##
+#  Popular Movies
 
-Presents the user with a grid arrangement of movieInfo posters upon launch.
+![alt-text](etc/93748124293.gif)
 
-- Allow the user to change sort order via a setting:
-	- The sort order can be by most popular or by highest-rated
+Android app that browses movies from themoviedb.org. Optionally provides ways to sort the movie data and can store favourite movies in a database.
 
-Allow the user to tap on a movieInfo poster and transition to a details screen with additional information such as:
+Presents the user with a grid of arranged movie posters upon launch.
 
-- original title
-- movieInfo poster image thumbnail
-- A plot synopsis 
-- user rating 
-- release date
+## Motivation
+
+Created for personal self-develpment and exploration of design and programming practices for the Android OS.
